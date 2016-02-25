@@ -9,8 +9,9 @@
 #import "DetailViewController.h"
 #import "StoryDetailDataModel.h"
 #import "StoryDetailExtraDataModel.h"
+#import "FDWebViewController.h"
 
-@interface DetailViewController ()
+@interface DetailViewController () <UIWebViewDelegate>
 @property(nonatomic, strong) UIWebView *webView;
 @property(nonatomic, strong) UIBarButtonItem *goBackButton;
 @property(nonatomic, strong) UIBarButtonItem *goForwardButton;
@@ -25,7 +26,9 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+  self.title = self.storyDateModel.title;
   self.webView = [[UIWebView alloc] init];
+  self.webView.delegate = self;
   self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]
       initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
                            target:self
@@ -138,4 +141,17 @@
   [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (BOOL)webView:(UIWebView *)webView
+    shouldStartLoadWithRequest:(NSURLRequest *)request
+                navigationType:(UIWebViewNavigationType)navigationType {
+  if (navigationType == UIWebViewNavigationTypeLinkClicked) {
+    FDWebViewController *webVC =
+        [[FDWebViewController alloc] initWithNibName:nil bundle:nil];
+    webVC.title = self.storyDateModel.title;
+    webVC.urlString = request.URL.absoluteString;
+    [self.navigationController pushViewController:webVC animated:YES];
+    return NO;
+  }
+  return YES;
+}
 @end
