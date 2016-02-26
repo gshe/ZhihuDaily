@@ -31,6 +31,7 @@
 
     self.thumbImg = [[UIImageView alloc] init];
     self.thumbImg.contentMode = UIViewContentModeScaleAspectFill;
+	  self.thumbImg.clipsToBounds = YES;
     self.clipsToBounds = YES;
     [self.contentView addSubview:self.title];
     [self.contentView addSubview:self.thumbImg];

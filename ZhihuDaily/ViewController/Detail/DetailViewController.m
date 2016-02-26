@@ -195,22 +195,26 @@
 }
 
 - (NSString *)generateHtmlWithCss {
-  NSMutableString *htmlString =
-      [[NSMutableString alloc] initWithString:@"<html>"];
+  if (self.detailInfo.body) {
+    NSMutableString *htmlString =
+        [[NSMutableString alloc] initWithString:@"<html>"];
 
-  [htmlString appendString:@"<head>"];
-  for (NSString *cssName in self.detailInfo.css) {
-    [htmlString appendString:@"<link rel =\"stylesheet\" href = \""];
-    [htmlString appendString:cssName];
-    [htmlString appendString:@"\" type=\"text/css\" />"];
+    [htmlString appendString:@"<head>"];
+    for (NSString *cssName in self.detailInfo.css) {
+      [htmlString appendString:@"<link rel =\"stylesheet\" href = \""];
+      [htmlString appendString:cssName];
+      [htmlString appendString:@"\" type=\"text/css\" />"];
+    }
+
+    [htmlString appendString:@"</head>"];
+    [htmlString appendString:@"<body>"];
+    [htmlString appendString:self.detailInfo.body];
+    [htmlString appendString:@"</body>"];
+    [htmlString appendString:@"</html>"];
+    return htmlString;
+  } else {
+    return nil;
   }
-
-  [htmlString appendString:@"</head>"];
-  [htmlString appendString:@"<body>"];
-  [htmlString appendString:self.detailInfo.body];
-  [htmlString appendString:@"</body>"];
-  [htmlString appendString:@"</html>"];
-  return htmlString;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
