@@ -8,7 +8,7 @@
 
 #import "WFAutoLoopView.h"
 #import "BannerStoryDataModel.h"
-#import "WFBannerView.h"
+#import "BannerView.h"
 
 #define kDefaultHeaderFrame                                                    \
   CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)
@@ -114,7 +114,7 @@
   [self updateCells];
 
   for (NSInteger i = 0; i < _cells.count; i++) {
-    WFBannerView *cell = [[WFBannerView alloc] init];
+    BannerView *cell = [[BannerView alloc] init];
     cell.tag = i + kBannerViewTag;
     cell.offsetY = _offsetY;
     cell.titleAlpha = _titleAlpha;
@@ -200,7 +200,7 @@
   NSMutableArray *cells = [NSMutableArray array];
   [banners enumerateObjectsUsingBlock:^(BannerStoryDataModel *banner, NSUInteger idx,
                                         BOOL *stop) {
-    WFBannerView *cell = [[WFBannerView alloc] initWithFrame:self.frame];
+    BannerView *cell = [[BannerView alloc] initWithFrame:self.frame];
     cell.banner = banner;
     cell.clickBannerCallBackBlock = ^(BannerStoryDataModel *banner) {
       if (_clickAutoLoopCallBackBlock) {
@@ -270,8 +270,8 @@
 
       _titleAlpha = 1 - ((h > 1) ? 1 : h);
 
-      WFBannerView *bannerView =
-          (WFBannerView *)[_scrollView viewWithTag:i + kBannerViewTag];
+      BannerView *bannerView =
+          (BannerView *)[_scrollView viewWithTag:i + kBannerViewTag];
       [bannerView.bannerTitleLbl
           setBottom:_scrollView.height - MAX(offset.y / 2, 0) - 25];
 
@@ -296,8 +296,8 @@
 
     for (int i = 0; i < 3; i++) {
 
-      WFBannerView *bannerView =
-          (WFBannerView *)[_scrollView viewWithTag:i + kBannerViewTag];
+      BannerView *bannerView =
+          (BannerView *)[_scrollView viewWithTag:i + kBannerViewTag];
       [bannerView.bannerTitleLbl setBottom:_scrollView.height - 25];
         }
     }

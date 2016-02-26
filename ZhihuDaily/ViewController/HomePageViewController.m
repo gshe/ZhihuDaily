@@ -28,6 +28,7 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+  self.title = self.channleModel.channelName;
   self.navigationBar.alpha = 0.f;
   self.statusBar.alpha = 0.f;
   _totalCount = 0;
@@ -127,9 +128,7 @@
   DetailViewController *detailVC =
       [[DetailViewController alloc] initWithNibName:nil bundle:nil];
   detailVC.storyDateModel = item;
-  UINavigationController *naviVC =
-      [[UINavigationController alloc] initWithRootViewController:detailVC];
-  [self presentViewController:naviVC animated:YES completion:nil];
+  [self.navigationController pushViewController:detailVC animated:YES];
 }
 
 - (void)openLeftDrawer {

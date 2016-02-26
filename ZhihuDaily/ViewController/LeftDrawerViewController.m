@@ -126,12 +126,14 @@
   [downloadBtn setTitle:@"离线" forState:UIControlStateNormal];
   [downloadBtn setImage:Image(@"leftDownload") forState:UIControlStateNormal];
   downloadBtn.titleLabel.font = Font_12;
+  [downloadBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, -5)];
   [_bottomView addSubview:downloadBtn];
 
   UIButton *nightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
   [nightBtn setTitle:@"夜间" forState:UIControlStateNormal];
   [nightBtn setImage:Image(@"leftNight") forState:UIControlStateNormal];
   nightBtn.titleLabel.font = Font_12;
+  [nightBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 5, 0, -5)];
   [_bottomView addSubview:nightBtn];
 
   [downloadBtn mas_makeConstraints:^(MASConstraintMaker *make) {

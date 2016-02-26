@@ -167,9 +167,9 @@
       success:^(NSURLSessionDataTask *_Nonnull task,
                 id _Nonnull responseObject) {
         NSError *error;
-        StoryListDataModel *data =
-            [[StoryListDataModel alloc] initWithDictionary:responseObject
-                                                     error:&error];
+        StoryDetailExtraDataModel *data =
+            [[StoryDetailExtraDataModel alloc] initWithDictionary:responseObject
+                                                            error:&error];
         if (data) {
           if (successBlock) {
             successBlock(data);

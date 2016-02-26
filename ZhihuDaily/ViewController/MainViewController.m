@@ -13,6 +13,7 @@
 @interface MainViewController ()
 @property(nonatomic, strong) UIViewController *currentViewController;
 @property(nonatomic, strong) UIViewController *containerController;
+@property(nonatomic, strong) NSMutableArray *naviControllers;
 @end
 
 @implementation MainViewController
@@ -20,11 +21,21 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
 
+  [self createMapToNavi];
   _containerController = [UIViewController new];
   _containerController.view.backgroundColor = [UIColor whiteColor];
   [self.view addSubview:_containerController.view];
 
   [self showSelectedViewController];
+}
+
+- (void)createMapToNavi {
+  _naviControllers = [NSMutableArray array];
+  for (BaseViewController *vc in _controllers) {
+    UINavigationController *naviVC =
+        [[UINavigationController alloc] initWithRootViewController:vc];
+    [_naviControllers addObject:naviVC];
+  }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -46,25 +57,29 @@
     [_currentViewController removeFromParentViewController];
   }
 
-  UIViewController *selectedVC = nil;
-  for (BaseViewController *vc in _controllers) {
+  NSInteger index = 0;
+  for (; index < _controllers.count; index++) {
+    BaseViewController *baseVC = _controllers[index];
+    if (baseVC.channleModel.isSelected) {
 
-    if (vc.channleModel.isSelected) {
-      selectedVC = vc;
       break;
     }
   }
+  if (index >= _controllers.count) {
+    index = 0;
+  }
+  UIViewController *selectedNaviVC = _naviControllers[index];
 
-  [_containerController addChildViewController:selectedVC];
-  [_containerController.view addSubview:selectedVC.view];
+  [_containerController addChildViewController:selectedNaviVC];
+  [_containerController.view addSubview:selectedNaviVC.view];
 
-  selectedVC.view.alpha = 0.f;
+  selectedNaviVC.view.alpha = 0.f;
   [UIView animateWithDuration:0.4f
       animations:^{
-        selectedVC.view.alpha = 1.0f;
+        selectedNaviVC.view.alpha = 1.0f;
       }
       completion:^(BOOL finished) {
-        _currentViewController = selectedVC;
+        _currentViewController = selectedNaviVC;
       }];
 }
 

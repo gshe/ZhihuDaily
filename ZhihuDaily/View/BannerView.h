@@ -12,7 +12,7 @@
 /**
  *  banner视图
  */
-@interface WFBannerView : UIImageView
+@interface BannerView : UIImageView
 
 @property(nonatomic, strong) BannerStoryDataModel *banner;
 

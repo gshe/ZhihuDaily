@@ -51,7 +51,7 @@
 		8496675F1C7EDD1E00D8E7CB /* WFAutoLoopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8496675A1C7EDD1E00D8E7CB /* WFAutoLoopView.m */; };
 		849667601C7EDD1E00D8E7CB /* WFLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8496675C1C7EDD1E00D8E7CB /* WFLoadingView.m */; };
 		849667611C7EDD1E00D8E7CB /* WFRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8496675E1C7EDD1E00D8E7CB /* WFRefreshView.m */; };
-		849667671C7EDFE500D8E7CB /* WFBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 849667661C7EDFE500D8E7CB /* WFBannerView.m */; };
+		849667671C7EDFE500D8E7CB /* BannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 849667661C7EDFE500D8E7CB /* BannerView.m */; };
 		8496676A1C7EE92400D8E7CB /* BannerStoryDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 849667691C7EE92300D8E7CB /* BannerStoryDataModel.m */; };
 		8496676D1C7EF8A700D8E7CB /* EditorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8496676C1C7EF8A700D8E7CB /* EditorView.m */; };
 		849667701C7EF97800D8E7CB /* WFThemeNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8496676F1C7EF97800D8E7CB /* WFThemeNavBar.m */; };
@@ -62,6 +62,7 @@
 		8496677F1C7F025700D8E7CB /* FDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8496677E1C7F025700D8E7CB /* FDViewController.m */; };
 		849667821C7F03B300D8E7CB /* EditorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 849667811C7F03B300D8E7CB /* EditorCell.m */; };
 		849667851C7F08A500D8E7CB /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 849667841C7F08A500D8E7CB /* DetailViewController.m */; };
+		849667881C7FFC4D00D8E7CB /* WFDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 849667871C7FFC4D00D8E7CB /* WFDetailHeaderView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -151,8 +152,8 @@
 		8496675C1C7EDD1E00D8E7CB /* WFLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFLoadingView.m; sourceTree = "<group>"; };
 		8496675D1C7EDD1E00D8E7CB /* WFRefreshView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFRefreshView.h; sourceTree = "<group>"; };
 		8496675E1C7EDD1E00D8E7CB /* WFRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFRefreshView.m; sourceTree = "<group>"; };
-		849667651C7EDFE500D8E7CB /* WFBannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFBannerView.h; sourceTree = "<group>"; };
-		849667661C7EDFE500D8E7CB /* WFBannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFBannerView.m; sourceTree = "<group>"; };
+		849667651C7EDFE500D8E7CB /* BannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerView.h; sourceTree = "<group>"; };
+		849667661C7EDFE500D8E7CB /* BannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerView.m; sourceTree = "<group>"; };
 		849667681C7EE92300D8E7CB /* BannerStoryDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerStoryDataModel.h; sourceTree = "<group>"; };
 		849667691C7EE92300D8E7CB /* BannerStoryDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerStoryDataModel.m; sourceTree = "<group>"; };
 		8496676B1C7EF8A700D8E7CB /* EditorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditorView.h; sourceTree = "<group>"; };
@@ -173,6 +174,8 @@
 		849667811C7F03B300D8E7CB /* EditorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditorCell.m; sourceTree = "<group>"; };
 		849667831C7F08A500D8E7CB /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		849667841C7F08A500D8E7CB /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		849667861C7FFC4D00D8E7CB /* WFDetailHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFDetailHeaderView.h; sourceTree = "<group>"; };
+		849667871C7FFC4D00D8E7CB /* WFDetailHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFDetailHeaderView.m; sourceTree = "<group>"; };
 		AECE401E484033FE6630FDA5 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		CE1015C37A81032C3132163B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -299,6 +302,8 @@
 		849666B51C7D909500D8E7CB /* View */ = {
 			isa = PBXGroup;
 			children = (
+				849667861C7FFC4D00D8E7CB /* WFDetailHeaderView.h */,
+				849667871C7FFC4D00D8E7CB /* WFDetailHeaderView.m */,
 				849667591C7EDD1E00D8E7CB /* WFAutoLoopView.h */,
 				8496675A1C7EDD1E00D8E7CB /* WFAutoLoopView.m */,
 				8496675B1C7EDD1E00D8E7CB /* WFLoadingView.h */,
@@ -403,8 +408,8 @@
 		849666D41C7D931200D8E7CB /* View */ = {
 			isa = PBXGroup;
 			children = (
-				849667651C7EDFE500D8E7CB /* WFBannerView.h */,
-				849667661C7EDFE500D8E7CB /* WFBannerView.m */,
+				849667651C7EDFE500D8E7CB /* BannerView.h */,
+				849667661C7EDFE500D8E7CB /* BannerView.m */,
 				849666D51C7D931200D8E7CB /* AreaPickView.h */,
 				849666D61C7D931200D8E7CB /* AreaPickView.m */,
 				849666D71C7D931200D8E7CB /* PopupBaseView.h */,
@@ -588,12 +593,13 @@
 				8496677C1C7F01E100D8E7CB /* EditorListViewController.m in Sources */,
 				849666E01C7D931200D8E7CB /* CacheFileHelper.m in Sources */,
 				849666E41C7D931200D8E7CB /* PopupBaseView.m in Sources */,
-				849667671C7EDFE500D8E7CB /* WFBannerView.m in Sources */,
+				849667671C7EDFE500D8E7CB /* BannerView.m in Sources */,
 				849667021C7D937000D8E7CB /* NSString+Extents.m in Sources */,
 				849666C31C7D916200D8E7CB /* MMExampleDrawerVisualStateManager.m in Sources */,
 				849667701C7EF97800D8E7CB /* WFThemeNavBar.m in Sources */,
 				849667201C7DA0E300D8E7CB /* StoryListDataModel.m in Sources */,
 				849666E21C7D931200D8E7CB /* XMDeveloperHelper.m in Sources */,
+				849667881C7FFC4D00D8E7CB /* WFDetailHeaderView.m in Sources */,
 				8496671D1C7DA02900D8E7CB /* EditorDataModel.m in Sources */,
 				849666E51C7D931200D8E7CB /* XMDateSelectView.m in Sources */,
 				8496672C1C7DA54400D8E7CB /* FDTableViewCell.m in Sources */,

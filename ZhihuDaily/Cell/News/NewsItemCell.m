@@ -20,6 +20,7 @@
               reuseIdentifier:(NSString *)reuseIdentifier {
   self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
   if (self) {
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.contentView.backgroundColor = [UIColor whiteColor];
 
     self.title = [UILabel new];
@@ -29,6 +30,7 @@
     self.title.textAlignment = NSTextAlignmentLeft;
 
     self.thumbImg = [[UIImageView alloc] init];
+    self.thumbImg.contentMode = UIViewContentModeScaleAspectFill;
     self.clipsToBounds = YES;
     [self.contentView addSubview:self.title];
     [self.contentView addSubview:self.thumbImg];

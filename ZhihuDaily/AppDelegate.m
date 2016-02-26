@@ -72,6 +72,8 @@
   self.window.rootViewController = rootVC;
   [self.window makeKeyAndVisible];
   [XWindowStack pushWindow:self.window];
+  [[UIApplication sharedApplication]
+      setStatusBarStyle:UIStatusBarStyleLightContent];
   [self launchScreen];
   return YES;
 }

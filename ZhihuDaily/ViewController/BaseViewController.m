@@ -64,6 +64,8 @@
   _mainTableView = [[UITableView alloc]
       initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
   _mainTableView.backgroundColor = [UIColor whiteColor];
+  _mainTableView.showsHorizontalScrollIndicator = NO;
+  _mainTableView.showsVerticalScrollIndicator = NO;
   [self.view addSubview:_mainTableView];
   _refreshView =
       [[WFRefreshView alloc] initWithFrame:CGRectMake(125, 32, 22.f, 22.f)];

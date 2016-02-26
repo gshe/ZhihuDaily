@@ -23,4 +23,5 @@
 @property(nonatomic, assign) long long storyId;
 @property(nonatomic, strong) NSString *ga_prefix;
 @property(nonatomic, strong) NSString *title;
+@property(nonatomic, strong) NSArray *css;
 @end

@@ -18,21 +18,13 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  // Do any additional setup after loading the view.
-  self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]
-      initWithBarButtonSystemItem:UIBarButtonSystemItemCancel
-                           target:self
-                           action:@selector(closeView:)];
+  self.title = @"编辑列表";
   [self configUI];
 }
 
 - (void)didReceiveMemoryWarning {
   [super didReceiveMemoryWarning];
   // Dispose of any resources that can be recreated.
-}
-
-- (void)closeView:(id)sender {
-  [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)configUI {

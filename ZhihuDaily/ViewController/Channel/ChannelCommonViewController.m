@@ -24,7 +24,8 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-
+  self.title = self.channleModel.channelName;
+	
   self.statusBar.hidden = YES;
   self.navigationBar.hidden = YES;
   self.navigationTitle = self.channleModel.channelName;
@@ -93,9 +94,7 @@
   DetailViewController *detailVC =
       [[DetailViewController alloc] initWithNibName:nil bundle:nil];
   detailVC.storyDateModel = item;
-  UINavigationController *naviVC =
-      [[UINavigationController alloc] initWithRootViewController:detailVC];
-  [self presentViewController:naviVC animated:YES completion:nil];
+  [self.navigationController pushViewController:detailVC animated:YES];
 }
 
 - (void)refreshNaviBar {
@@ -153,9 +152,7 @@
   EditorListViewController *editListVC =
       [[EditorListViewController alloc] initWithNibName:nil bundle:nil];
   editListVC.editors = self.storyList.editors;
-  UINavigationController *naviVC =
-      [[UINavigationController alloc] initWithRootViewController:editListVC];
-  [self presentViewController:naviVC animated:YES completion:nil];
+  [self.navigationController pushViewController:editListVC animated:YES];
 }
 
 @end

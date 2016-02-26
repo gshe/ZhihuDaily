@@ -6,9 +6,9 @@
 //  Copyright © 2016年 xiupintech. All rights reserved.
 //
 
-#import "WFBannerView.h"
+#import "BannerView.h"
 
-@implementation WFBannerView
+@implementation BannerView
 
 - (id)initWithFrame:(CGRect)frame {
 
