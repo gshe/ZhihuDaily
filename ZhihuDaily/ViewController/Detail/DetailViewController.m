@@ -12,6 +12,7 @@
 #import "FDWebViewController.h"
 #import "WFDetailHeaderView.h"
 #import "WFLoadingView.h"
+#import "RecommendersView.h"
 
 @interface DetailViewController () <UIWebViewDelegate, UIScrollViewDelegate>
 @property(nonatomic, strong) UIWebView *webView;
@@ -27,13 +28,14 @@
 @property(nonatomic, strong) StoryDetailExtraDataModel *extraInfo;
 @property(nonatomic, strong) WFDetailHeaderView *detailHeaderView;
 @property(nonatomic, strong) WFLoadingView *loadingView;
+@property(nonatomic, strong) RecommendersView *recommendersView;
 @end
 
 @implementation DetailViewController
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  self.title = self.storyDateModel.title;
+  self.title = self.storyDataModel.title;
   [self configUI];
   //[self.view addSubview:self.loadingView];
   [self requestData];
@@ -44,20 +46,29 @@
 }
 
 - (void)configUI {
-
   self.webView = [[UIWebView alloc] init];
   self.webView.delegate = self;
   self.webView.scrollView.delegate = self;
 
   [self.view addSubview:self.webView];
   self.view.backgroundColor = [UIColor whiteColor];
-  [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
-    make.left.equalTo(self.view);
-    make.right.equalTo(self.view);
-    make.top.equalTo(self.view).offset(20);
-    make.bottom.equalTo(self.view);
-  }];
+
   [self configDetailHeaderView];
+  if (self.isShowHeaderView) {
+    [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
+      make.left.equalTo(self.view);
+      make.right.equalTo(self.view);
+      make.top.equalTo(self.view).offset(20);
+      make.bottom.equalTo(self.view);
+    }];
+  } else {
+    [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
+      make.left.equalTo(self.view);
+      make.right.equalTo(self.view);
+      make.top.equalTo(_recommendersView.mas_bottom);
+      make.bottom.equalTo(self.view);
+    }];
+  }
   self.goBackButton =
       [[UIBarButtonItem alloc] initWithImage:Image(@"detail_Back")
                                        style:UIBarButtonItemStylePlain
@@ -74,7 +85,7 @@
   [self.votedButton addTarget:self
                        action:@selector(votedPressed:)
              forControlEvents:UIControlEventTouchUpInside];
-  self.votedButton.titleLabel.font = Font_12;
+  self.votedButton.titleLabel.font = Font_10;
   [self.votedButton setTitleColor:[UIColor ex_mainTextColor]
                          forState:UIControlStateNormal];
   self.votedButton.tintColor = [UIColor lightGrayColor];
@@ -94,7 +105,7 @@
   [self.commentButton addTarget:self
                          action:@selector(commentPressed:)
                forControlEvents:UIControlEventTouchUpInside];
-  self.commentButton.titleLabel.font = Font_12;
+  self.commentButton.titleLabel.font = Font_10;
   [self.commentButton setTitleColor:[UIColor ex_mainTextColor]
                            forState:UIControlStateNormal];
   self.commentButton.tintColor = [UIColor lightGrayColor];
@@ -119,7 +130,7 @@
 - (void)requestData {
   [self showHUD];
   [[ZhihuDataManager shardInstance]
-      requestNewsDetail:self.storyDateModel.storyId
+      requestNewsDetail:self.storyDataModel.storyId
       successBlock:^(StoryDetailDataModel *json) {
         _detailInfo = json;
         [self refreshUI];
@@ -130,7 +141,7 @@
       }];
 
   [[ZhihuDataManager shardInstance]
-      requestNewsDetailExtra:self.storyDateModel.storyId
+      requestNewsDetailExtra:self.storyDataModel.storyId
       successBlock:^(StoryDetailExtraDataModel *json) {
         _extraInfo = json;
         [self refreshUI];
@@ -141,7 +152,7 @@
 }
 
 - (void)refreshUI {
-
+  [self refreshToolbarStatus];
   if (self.detailInfo) {
     NSString *htmlStr = [self generateHtmlWithCss];
     [_webView loadHTMLString:htmlStr baseURL:nil];
@@ -160,17 +171,27 @@
 }
 
 - (void)configDetailHeaderView {
-  if (!_detailHeaderView) {
-    _detailHeaderView = [[WFDetailHeaderView alloc]
-        initWithFrame:CGRectMake(0, -40, kScreenWidth, 260)];
-    [self.view addSubview:_detailHeaderView];
-    _detailHeaderView.webView = _webView;
+  if (self.isShowHeaderView) {
+    if (!_detailHeaderView) {
+      _detailHeaderView = [[WFDetailHeaderView alloc]
+          initWithFrame:CGRectMake(0, -40, kScreenWidth, 260)];
+      [self.view addSubview:_detailHeaderView];
+    }
+  } else {
+    if (!_recommendersView) {
+      _recommendersView = [[RecommendersView alloc]
+          initWithFrame:CGRectMake(0, 20, kScreenWidth, 56)];
+      [self.view addSubview:_recommendersView];
+    }
   }
 }
 
 - (void)refreshDetailHeaderView {
-
-  [_detailHeaderView refreshHeaderView:self.detailInfo];
+  if (self.isShowHeaderView) {
+    [_detailHeaderView refreshHeaderView:self.detailInfo];
+  } else {
+    _recommendersView.recommenders = self.detailInfo.recommenders;
+  }
 }
 
 - (NSString *)generateHtmlWithCss {
@@ -217,9 +238,11 @@
 }
 
 - (void)goBackPressed:(id)sender {
+  [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)nextPressed:(id)sender {
+  [self getNextNews];
 }
 
 - (void)sharePressed:(id)sender {
@@ -230,6 +253,21 @@
 
 - (void)commentPressed:(id)sender {
 }
+- (void)getNextNews {
+  NSUInteger index = [self.storyDataList indexOfObject:self.storyDataModel];
+  if (index < self.storyDataList.count - 1) {
+    self.storyDataModel = self.storyDataList[index + 1];
+  }
+  [self requestData];
+}
+
+- (void)getPreviousNews {
+  NSUInteger index = [self.storyDataList indexOfObject:self.storyDataModel];
+  if (index > 0) {
+    self.storyDataModel = self.storyDataList[index - 1];
+  }
+  [self requestData];
+}
 
 - (BOOL)webView:(UIWebView *)webView
     shouldStartLoadWithRequest:(NSURLRequest *)request
@@ -237,7 +275,7 @@
   if (navigationType == UIWebViewNavigationTypeLinkClicked) {
     FDWebViewController *webVC =
         [[FDWebViewController alloc] initWithNibName:nil bundle:nil];
-    webVC.title = self.storyDateModel.title;
+    webVC.title = self.storyDataModel.title;
     webVC.urlString = request.URL.absoluteString;
     [self.navigationController pushViewController:webVC animated:YES];
     return NO;
@@ -245,6 +283,14 @@
   return YES;
 }
 
+- (void)refreshToolbarStatus {
+  NSUInteger index = [self.storyDataList indexOfObject:self.storyDataModel];
+  if (index == self.storyDataList.count) {
+    self.nextButton.enabled = NO;
+  } else {
+    self.nextButton.enabled = YES;
+  }
+}
 #pragma mark - UIScrollView Delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
 
@@ -256,7 +302,7 @@
 
     if (-offSetY > 40 && !_webView.scrollView.isDragging) {
 
-      //[self getPreviousNews];
+      [self getPreviousNews];
     }
   } else if (-offSetY > 80) { //到－80 让webview不再能被拉动
 
@@ -270,7 +316,7 @@
   if (offSetY + kScreenHeight > scrollView.contentSize.height + 160 &&
       !_webView.scrollView.isDragging) {
 
-    //[self getNextNews];
+    [self getNextNews];
   }
 
   if (offSetY >= 200) {

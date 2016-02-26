@@ -10,5 +10,7 @@
 #import "StoryDataModel.h"
 
 @interface DetailViewController : FDViewController
-@property(nonatomic, strong) StoryDataModel *storyDateModel;
+@property(nonatomic, strong) StoryDataModel *storyDataModel;
+@property(nonatomic, strong) NSArray *storyDataList;
+@property(nonatomic, assign) BOOL isShowHeaderView;
 @end

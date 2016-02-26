@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		35BE9E188ADF871FC7AE21D5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EDEC54A9382457AC9B13AB0 /* libPods.a */; };
+		8405E7461C80487C004AF61E /* RecommendersView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8405E7451C80487C004AF61E /* RecommendersView.m */; };
 		8496669E1C7D8F9900D8E7CB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8496669D1C7D8F9900D8E7CB /* main.m */; };
 		849666A11C7D8F9900D8E7CB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 849666A01C7D8F9900D8E7CB /* AppDelegate.m */; };
 		849666A71C7D8F9900D8E7CB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 849666A51C7D8F9900D8E7CB /* Main.storyboard */; };
@@ -67,6 +68,8 @@
 
 /* Begin PBXFileReference section */
 		4EDEC54A9382457AC9B13AB0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8405E7441C80487C004AF61E /* RecommendersView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendersView.h; sourceTree = "<group>"; };
+		8405E7451C80487C004AF61E /* RecommendersView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendersView.m; sourceTree = "<group>"; };
 		849666991C7D8F9900D8E7CB /* ZhihuDaily.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZhihuDaily.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8496669D1C7D8F9900D8E7CB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8496669F1C7D8F9900D8E7CB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -418,6 +421,8 @@
 				849666DA1C7D931200D8E7CB /* XMDateSelectView.m */,
 				849666DB1C7D931200D8E7CB /* XWindowStack.h */,
 				849666DC1C7D931200D8E7CB /* XWindowStack.m */,
+				8405E7441C80487C004AF61E /* RecommendersView.h */,
+				8405E7451C80487C004AF61E /* RecommendersView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -497,6 +502,7 @@
 				TargetAttributes = {
 					849666981C7D8F9900D8E7CB = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = M7UKXJFB5U;
 					};
 				};
 			};
@@ -624,6 +630,7 @@
 				849666C01C7D914400D8E7CB /* HomePageViewController.m in Sources */,
 				849667781C7F01C300D8E7CB /* FDTableViewController.m in Sources */,
 				849667261C7DA36400D8E7CB /* StoryDetailDataModel.m in Sources */,
+				8405E7461C80487C004AF61E /* RecommendersView.m in Sources */,
 				8496677F1C7F025700D8E7CB /* FDViewController.m in Sources */,
 				8496669E1C7D8F9900D8E7CB /* main.m in Sources */,
 				849667551C7EA6EC00D8E7CB /* ChannelItemDataModel.m in Sources */,
@@ -739,12 +746,15 @@
 			baseConfigurationReference = CE1015C37A81032C3132163B /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "./ZhihuDaily/ZhihuDaily-PrefixHeader.pch";
 				INFOPLIST_FILE = ZhihuDaily/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gshe.ZhihuDaily;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -753,12 +763,15 @@
 			baseConfigurationReference = AECE401E484033FE6630FDA5 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PREFIX_HEADER = "./ZhihuDaily/ZhihuDaily-PrefixHeader.pch";
 				INFOPLIST_FILE = ZhihuDaily/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.gshe.ZhihuDaily;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

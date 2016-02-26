@@ -25,7 +25,7 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
   self.title = self.channleModel.channelName;
-	
+
   self.statusBar.hidden = YES;
   self.navigationBar.hidden = YES;
   self.navigationTitle = self.channleModel.channelName;
@@ -93,7 +93,9 @@
   StoryDataModel *item = userData.storyItem;
   DetailViewController *detailVC =
       [[DetailViewController alloc] initWithNibName:nil bundle:nil];
-  detailVC.storyDateModel = item;
+  detailVC.storyDataModel = item;
+  detailVC.storyDataList = self.storyList.stories;
+  detailVC.isShowHeaderView = NO;
   [self.navigationController pushViewController:detailVC animated:YES];
 }
 

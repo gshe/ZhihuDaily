@@ -13,7 +13,6 @@
 @property(nonatomic, strong) UIImageView *imageView;
 @property(nonatomic, strong) UILabel *titleLab;
 @property(nonatomic, strong) UILabel *imgSourceLab;
-@property(nonatomic, weak) UIWebView *webView;
 
 - (void)refreshHeaderView:(StoryDetailDataModel *)detailStory;
 

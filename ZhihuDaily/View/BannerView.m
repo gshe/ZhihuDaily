@@ -58,7 +58,9 @@
 
   _banner = banner;
   [self sd_setImageWithURL:[NSURL URLWithString:banner.image]
-          placeholderImage:Image(@"tags_selected.png")];
+          placeholderImage:Image(@"tags_selected.png") options:0 completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+			  
+		  }];
 
   NSAttributedString *attStr = [[NSAttributedString alloc]
       initWithString:banner.title

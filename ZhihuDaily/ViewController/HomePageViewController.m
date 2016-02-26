@@ -127,7 +127,8 @@
   StoryDataModel *item = userData.storyItem;
   DetailViewController *detailVC =
       [[DetailViewController alloc] initWithNibName:nil bundle:nil];
-  detailVC.storyDateModel = item;
+  detailVC.storyDataModel = item;
+	detailVC.isShowHeaderView = YES;
   [self.navigationController pushViewController:detailVC animated:YES];
 }
 
