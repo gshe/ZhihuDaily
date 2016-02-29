@@ -39,6 +39,7 @@
 }
 
 - (void)requestLaunchImage {
+  FDWeakSelf;
   [[ZhihuDataManager shardInstance]
       requestLaunchImage:^(LaunchDataModel *json) {
         [_secondImage sd_setImageWithURL:[NSURL URLWithString:json.img]
@@ -49,12 +50,14 @@
               _secondImage.transform = CGAffineTransformMakeScale(1.1f, 1.1f);
             }
             completion:^(BOOL finished) {
+              FDStrongSelf;
               [_secondImage removeFromSuperview];
               [_firstImage removeFromSuperview];
               [self.view removeFromSuperview];
             }];
       }
       failed:^(NSError *error) {
+        FDStrongSelf;
         [_secondImage removeFromSuperview];
         [_firstImage removeFromSuperview];
         [self.view removeFromSuperview];

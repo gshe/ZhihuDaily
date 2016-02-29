@@ -15,7 +15,7 @@
 
 @interface HomePageViewController ()
 @property(nonatomic, strong) WFAutoLoopView *autoLoopView;
-@property(nonatomic, strong) NSMutableArray *contents;
+@property(nonatomic, strong) NSMutableDictionary *contentsDic;
 @property(nonatomic, strong) NSArray<StoryDataModel> *todayStories;
 @property(nonatomic, strong) NSArray<BannerStoryDataModel> *top_stories;
 
@@ -35,7 +35,7 @@
   _formatter = [[NSDateFormatter alloc] init];
   _formatter.dateFormat = @"yyyy年MM月dd";
   _fetchDate = [NSDate date];
-  _contents = [NSMutableArray array];
+  _contentsDic = [NSMutableDictionary dictionary];
   self.navigationTitle = @"今日要闻";
   [self requestNewData];
 }
@@ -49,9 +49,9 @@
   _fetchDate = [NSDate date];
   [[ZhihuDataManager shardInstance]
       requestLatestNews:^(StoryListDataModel *json) {
-        [_contents removeAllObjects];
+        [_contentsDic removeAllObjects];
         //[_contents addObject:_fetchDate];
-        [_contents addObject:json.stories];
+        [_contentsDic setObject:json.stories forKey:@""];
         _todayStories = json.stories;
         _totalCount = json.stories.count;
         _top_stories = json.top_stories;
@@ -68,8 +68,8 @@
   _fetchDate = [NSDate dateWithTimeInterval:-24 * 60 * 60 sinceDate:_fetchDate];
   [[ZhihuDataManager shardInstance] requestOldNews:_fetchDate
       successBlock:^(StoryListDataModel *json) {
-        [_contents addObject:json.date];
-        [_contents addObject:json.stories];
+        [_contentsDic setObject:json.stories
+                         forKey:[_formatter stringFromDate:json.date]];
         _totalCount += json.stories.count;
         self.isLoading = NO;
         [self.refreshView stopAnimation];
@@ -82,29 +82,56 @@
 - (void)refreshUI {
   [self addTopView];
   NSMutableArray *tableContents = [@[] mutableCopy];
+  NSArray *keys = [_contentsDic allKeys];
+  NSArray *sortedArray =
+      [keys sortedArrayUsingComparator:^NSComparisonResult(NSString *obj1,
+                                                           NSString *obj2) {
+        if ([obj1 isEqualToString:@""]) {
+          return NSOrderedAscending;
+        }
+        return [obj2 compare:obj1];
+      }];
+
   self.action = [[NITableViewActions alloc] initWithTarget:self];
-  if (self.contents) {
-    for (id item in self.contents) {
-      if ([item isKindOfClass:[NSDate class]]) {
-        [tableContents addObject:[_formatter stringFromDate:item]];
-      } else {
-        for (id subItem in item) {
-          NewsItemCellUserData *userData = [[NewsItemCellUserData alloc] init];
-          userData.storyItem = subItem;
-          [tableContents
-              addObject:
-                  [self.action
-                      attachToObject:[[NICellObject alloc]
+  for (NSString *key in sortedArray) {
+    NSArray *items = _contentsDic[key];
+    [tableContents addObject:key];
+    for (id subItem in items) {
+      NewsItemCellUserData *userData = [[NewsItemCellUserData alloc] init];
+      userData.storyItem = subItem;
+      [tableContents
+          addObject:[self.action attachToObject:
+                                     [[NICellObject alloc]
                                          initWithCellClass:[NewsItemCell class]
                                                   userInfo:userData]
-                         tapSelector:@selector(itemClicked:)]];
-        }
-      }
+                                    tapSelector:@selector(itemClicked:)]];
     }
   }
 
   self.mainTableView.delegate = [self.action forwardingTo:self];
   [self setTableData:tableContents];
+}
+
+- (NSArray *)getAllNews {
+  NSMutableArray *contents = [@[] mutableCopy];
+  NSArray *keys = [_contentsDic allKeys];
+  NSArray *sortedArray =
+      [keys sortedArrayUsingComparator:^NSComparisonResult(NSString *obj1,
+                                                           NSString *obj2) {
+        if ([obj1 isEqualToString:@""]) {
+          return NSOrderedAscending;
+        }
+        return [obj2 compare:obj1];
+      }];
+
+  for (NSString *key in sortedArray) {
+    NSArray *items = _contentsDic[key];
+    for (id subItem in items) {
+      [contents addObject:subItem];
+    }
+  }
+
+  return contents;
 }
 
 - (void)addTopView {
@@ -128,7 +155,8 @@
   DetailViewController *detailVC =
       [[DetailViewController alloc] initWithNibName:nil bundle:nil];
   detailVC.storyDataModel = item;
-	detailVC.isShowHeaderView = YES;
+  detailVC.storyDataList = [self getAllNews];
+  detailVC.isShowHeaderView = YES;
   [self.navigationController pushViewController:detailVC animated:YES];
 }
 

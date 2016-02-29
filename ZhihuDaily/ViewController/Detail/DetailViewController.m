@@ -23,6 +23,7 @@
 @property(nonatomic, strong) UIBarButtonItem *shareButton;
 @property(nonatomic, strong) UIButton *commentButton;
 @property(nonatomic, strong) UIBarButtonItem *commentBarButton;
+@property(nonatomic, strong) UIView *containerView;
 
 @property(nonatomic, strong) StoryDetailDataModel *detailInfo;
 @property(nonatomic, strong) StoryDetailExtraDataModel *extraInfo;
@@ -37,7 +38,6 @@
   [super viewDidLoad];
   self.title = self.storyDataModel.title;
   [self configUI];
-  //[self.view addSubview:self.loadingView];
   [self requestData];
 }
 
@@ -46,27 +46,30 @@
 }
 
 - (void)configUI {
+  self.containerView = [[UIView alloc] initWithFrame:self.view.bounds];
+  [self.view addSubview:self.containerView];
+
   self.webView = [[UIWebView alloc] init];
   self.webView.delegate = self;
   self.webView.scrollView.delegate = self;
 
-  [self.view addSubview:self.webView];
+  [self.containerView addSubview:self.webView];
   self.view.backgroundColor = [UIColor whiteColor];
 
   [self configDetailHeaderView];
   if (self.isShowHeaderView) {
     [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
-      make.left.equalTo(self.view);
-      make.right.equalTo(self.view);
-      make.top.equalTo(self.view).offset(20);
-      make.bottom.equalTo(self.view);
+      make.left.equalTo(self.containerView);
+      make.right.equalTo(self.containerView);
+      make.top.equalTo(self.containerView).offset(20);
+      make.bottom.equalTo(self.containerView);
     }];
   } else {
     [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
-      make.left.equalTo(self.view);
-      make.right.equalTo(self.view);
+      make.left.equalTo(self.containerView);
+      make.right.equalTo(self.containerView);
       make.top.equalTo(_recommendersView.mas_bottom);
-      make.bottom.equalTo(self.view);
+      make.bottom.equalTo(self.containerView);
     }];
   }
   self.goBackButton =
@@ -128,21 +131,26 @@
 }
 
 - (void)requestData {
-  [self showHUD];
+  FDWeakSelf;
   [[ZhihuDataManager shardInstance]
       requestNewsDetail:self.storyDataModel.storyId
       successBlock:^(StoryDetailDataModel *json) {
+        FDStrongSelf;
         _detailInfo = json;
         [self refreshUI];
-        [self hideAllHUDs];
-      }
-      failed:^(NSError *error){
 
+        [_loadingView dismissLoadingView];
+        _loadingView = nil;
+      }
+      failed:^(NSError *error) {
+        [_loadingView dismissLoadingView];
+        _loadingView = nil;
       }];
 
   [[ZhihuDataManager shardInstance]
       requestNewsDetailExtra:self.storyDataModel.storyId
       successBlock:^(StoryDetailExtraDataModel *json) {
+        FDStrongSelf;
         _extraInfo = json;
         [self refreshUI];
       }
@@ -175,13 +183,13 @@
     if (!_detailHeaderView) {
       _detailHeaderView = [[WFDetailHeaderView alloc]
           initWithFrame:CGRectMake(0, -40, kScreenWidth, 260)];
-      [self.view addSubview:_detailHeaderView];
+      [self.containerView addSubview:_detailHeaderView];
     }
   } else {
     if (!_recommendersView) {
       _recommendersView = [[RecommendersView alloc]
           initWithFrame:CGRectMake(0, 20, kScreenWidth, 56)];
-      [self.view addSubview:_recommendersView];
+      [self.containerView addSubview:_recommendersView];
     }
   }
 }
@@ -257,20 +265,65 @@
 
 - (void)commentPressed:(id)sender {
 }
+
 - (void)getNextNews {
-  NSUInteger index = [self.storyDataList indexOfObject:self.storyDataModel];
-  if (index < self.storyDataList.count - 1) {
-    self.storyDataModel = self.storyDataList[index + 1];
-  }
-  [self requestData];
+  FDWeakSelf;
+  [UIView animateWithDuration:0.25
+      delay:0
+      options:UIViewAnimationOptionCurveEaseIn
+      animations:^{
+        self.containerView.frame =
+            CGRectMake(0, -kScreenHeight, kScreenWidth, kScreenHeight);
+      }
+      completion:^(BOOL finished) {
+        FDStrongSelf;
+        [self.view insertSubview:self.loadingView belowSubview:self.webView];
+        dispatch_after(
+            dispatch_time(DISPATCH_TIME_NOW, 0.25 * NSEC_PER_SEC),
+            dispatch_get_main_queue(), ^{
+              self.containerView.frame =
+                  CGRectMake(0, 0, kScreenWidth, kScreenHeight);
+              NSUInteger index =
+                  [self.storyDataList indexOfObject:self.storyDataModel];
+              if (index < self.storyDataList.count - 1) {
+                self.storyDataModel = self.storyDataList[index + 1];
+                self.detailInfo = nil;
+                self.extraInfo = nil;
+              }
+              [self requestData];
+            });
+
+      }];
 }
 
 - (void)getPreviousNews {
-  NSUInteger index = [self.storyDataList indexOfObject:self.storyDataModel];
-  if (index > 0) {
-    self.storyDataModel = self.storyDataList[index - 1];
-  }
-  [self requestData];
+  FDWeakSelf;
+  [UIView animateWithDuration:0.25
+      delay:0
+      options:UIViewAnimationOptionCurveEaseIn
+      animations:^{
+        self.containerView.frame =
+            CGRectMake(0, kScreenHeight + 40, kScreenWidth, kScreenHeight);
+      }
+      completion:^(BOOL finished) {
+        FDStrongSelf;
+        [self.view insertSubview:self.loadingView belowSubview:self.webView];
+        dispatch_after(
+            dispatch_time(DISPATCH_TIME_NOW, 0.25 * NSEC_PER_SEC),
+            dispatch_get_main_queue(), ^{
+              self.containerView.frame =
+                  CGRectMake(0, 0, kScreenWidth, kScreenHeight);
+              NSUInteger index =
+                  [self.storyDataList indexOfObject:self.storyDataModel];
+              if (index > 0) {
+                self.storyDataModel = self.storyDataList[index - 1];
+                self.detailInfo = nil;
+                self.extraInfo = nil;
+              }
+              [self requestData];
+            });
+
+      }];
 }
 
 - (BOOL)webView:(UIWebView *)webView
@@ -289,12 +342,13 @@
 
 - (void)refreshToolbarStatus {
   NSUInteger index = [self.storyDataList indexOfObject:self.storyDataModel];
-  if (index == self.storyDataList.count) {
+  if (index == self.storyDataList.count - 1) {
     self.nextButton.enabled = NO;
   } else {
     self.nextButton.enabled = YES;
   }
 }
+
 #pragma mark - UIScrollView Delegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
 

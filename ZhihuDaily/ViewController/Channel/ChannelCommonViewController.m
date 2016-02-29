@@ -55,9 +55,11 @@
 }
 
 - (void)requestData {
+  FDWeakSelf;
   [[ZhihuDataManager shardInstance]
       requestChannelNewsWithChannelId:self.channleModel.channleId
       successBlock:^(StoryListDataModel *json) {
+        FDStrongSelf;
         self.storyList = json;
         [self refreshUI];
       }

@@ -8,6 +8,9 @@
 
 #import "WFDetailHeaderView.h"
 #import "UIImageView+WFImg.h"
+@interface WFDetailHeaderView ()
+@property(nonatomic, strong) UILabel *loadPrevious;
+@end
 
 @implementation WFDetailHeaderView
 
@@ -30,19 +33,28 @@
   _titleLab = [[UILabel alloc] initWithFrame:CGRectZero];
   _titleLab.numberOfLines = 0;
   [self addSubview:_titleLab];
-
   _imgSourceLab = [[UILabel alloc] initWithFrame:CGRectZero];
   _imgSourceLab.textAlignment = NSTextAlignmentRight;
   _imgSourceLab.font = [UIFont systemFontOfSize:12];
   _imgSourceLab.textColor = [UIColor whiteColor];
   [self addSubview:_imgSourceLab];
 
+  _loadPrevious = [[UILabel alloc] initWithFrame:CGRectZero];
+  _loadPrevious.numberOfLines = 0;
+  _loadPrevious.textColor = [UIColor ex_blueTextColor];
+  _loadPrevious.font = Font_10;
+  [self addSubview:_loadPrevious];
+  [_loadPrevious mas_makeConstraints:^(MASConstraintMaker *make) {
+    make.top.equalTo(self).offset(20);
+    make.centerX.equalTo(self);
+  }];
   [_imageView mas_makeConstraints:^(MASConstraintMaker *make) {
     make.left.equalTo(self);
     make.right.equalTo(self);
     make.top.equalTo(self);
     make.height.mas_equalTo(300);
   }];
+
   [_imgSourceLab mas_makeConstraints:^(MASConstraintMaker *make) {
     make.right.equalTo(self).offset(-15);
     make.bottom.equalTo(self).offset(-15);
@@ -67,6 +79,7 @@
                       placeholderImage:Image(@"tags_selected.png")];
   _titleLab.attributedText = titleLblString;
   _imgSourceLab.text = storyDetail.image_source;
+  _loadPrevious.text = @"加载上一条";
 }
 //
 //- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {

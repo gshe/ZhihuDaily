@@ -25,12 +25,21 @@
 #import "UIImageView+WebCache.h"
 #import "StoryListDataModel.h"
 #import "UIView+Extension.h"
+#import "extobjc.h"
 
 #define WIDTH(v) (v).frame.size.width
 #define HEIGHT(v) (v).frame.size.height
 #define kScreenWidth [UIScreen mainScreen].bounds.size.width
 #define kScreenHeight [UIScreen mainScreen].bounds.size.height
 #define kScreenBounds [UIScreen mainScreen].bounds
+
+#undef FDWeak
+#define FDWeak(...) @weakify(__VA_ARGS__)
+#define FDWeakSelf FDWeak(self);
+
+#undef FDStrong
+#define FDStrong(...) @strongify(__VA_ARGS__)
+#define FDStrongSelf FDStrong(self);
 
 // Include any system framework and library headers here that should be included
 // in all compilation units.

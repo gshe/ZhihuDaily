@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		35BE9E188ADF871FC7AE21D5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4EDEC54A9382457AC9B13AB0 /* libPods.a */; };
 		8405E7461C80487C004AF61E /* RecommendersView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8405E7451C80487C004AF61E /* RecommendersView.m */; };
+		84548AEB1C83F536000A6B58 /* LoadingAnimation.gif in Resources */ = {isa = PBXBuildFile; fileRef = 84548AEA1C83F536000A6B58 /* LoadingAnimation.gif */; };
 		8496669E1C7D8F9900D8E7CB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8496669D1C7D8F9900D8E7CB /* main.m */; };
 		849666A11C7D8F9900D8E7CB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 849666A01C7D8F9900D8E7CB /* AppDelegate.m */; };
 		849666A71C7D8F9900D8E7CB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 849666A51C7D8F9900D8E7CB /* Main.storyboard */; };
@@ -70,6 +71,7 @@
 		4EDEC54A9382457AC9B13AB0 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8405E7441C80487C004AF61E /* RecommendersView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendersView.h; sourceTree = "<group>"; };
 		8405E7451C80487C004AF61E /* RecommendersView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendersView.m; sourceTree = "<group>"; };
+		84548AEA1C83F536000A6B58 /* LoadingAnimation.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = LoadingAnimation.gif; sourceTree = "<group>"; };
 		849666991C7D8F9900D8E7CB /* ZhihuDaily.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZhihuDaily.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8496669D1C7D8F9900D8E7CB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8496669F1C7D8F9900D8E7CB /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -256,6 +258,7 @@
 		8496669C1C7D8F9900D8E7CB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				84548AEA1C83F536000A6B58 /* LoadingAnimation.gif */,
 				849666C41C7D925600D8E7CB /* ZhihuDaily-PrefixHeader.pch */,
 				849666AD1C7D8F9900D8E7CB /* Info.plist */,
 				8496669D1C7D8F9900D8E7CB /* main.m */,
@@ -531,6 +534,7 @@
 			files = (
 				849666A91C7D8F9900D8E7CB /* Assets.xcassets in Resources */,
 				849666A71C7D8F9900D8E7CB /* Main.storyboard in Resources */,
+				84548AEB1C83F536000A6B58 /* LoadingAnimation.gif in Resources */,
 				849667111C7D998B00D8E7CB /* Resource.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
