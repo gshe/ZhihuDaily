@@ -70,6 +70,8 @@
 		849667881C7FFC4D00D8E7CB /* WFDetailHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 849667871C7FFC4D00D8E7CB /* WFDetailHeaderView.m */; };
 		84AB532D1C8449E300029B12 /* AddCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AB532C1C8449E300029B12 /* AddCommentViewController.m */; };
 		84AB53301C85342200029B12 /* EmptySeatsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AB532F1C85342200029B12 /* EmptySeatsCell.m */; };
+		84AB53331C8541C700029B12 /* ShareToView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AB53321C8541C700029B12 /* ShareToView.m */; };
+		84AB53361C856E1300029B12 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AB53351C856E1300029B12 /* LoginViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -196,6 +198,10 @@
 		84AB532C1C8449E300029B12 /* AddCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCommentViewController.m; sourceTree = "<group>"; };
 		84AB532E1C85342200029B12 /* EmptySeatsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmptySeatsCell.h; sourceTree = "<group>"; };
 		84AB532F1C85342200029B12 /* EmptySeatsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmptySeatsCell.m; sourceTree = "<group>"; };
+		84AB53311C8541C700029B12 /* ShareToView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareToView.h; sourceTree = "<group>"; };
+		84AB53321C8541C700029B12 /* ShareToView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareToView.m; sourceTree = "<group>"; };
+		84AB53341C856E1300029B12 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		84AB53351C856E1300029B12 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		AECE401E484033FE6630FDA5 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		CE1015C37A81032C3132163B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -370,6 +376,8 @@
 				849667411C7DB26700D8E7CB /* MainViewController.m */,
 				8496677A1C7F01E100D8E7CB /* EditorListViewController.h */,
 				8496677B1C7F01E100D8E7CB /* EditorListViewController.m */,
+				84AB53341C856E1300029B12 /* LoginViewController.h */,
+				84AB53351C856E1300029B12 /* LoginViewController.m */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -447,6 +455,8 @@
 				849666DC1C7D931200D8E7CB /* XWindowStack.m */,
 				8405E7441C80487C004AF61E /* RecommendersView.h */,
 				8405E7451C80487C004AF61E /* RecommendersView.m */,
+				84AB53311C8541C700029B12 /* ShareToView.h */,
+				84AB53321C8541C700029B12 /* ShareToView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -622,6 +632,7 @@
 				849666BD1C7D913500D8E7CB /* LeftDrawerViewController.m in Sources */,
 				849666E11C7D931200D8E7CB /* UIColor+Extents.m in Sources */,
 				849667581C7EDD1400D8E7CB /* WFToastView.m in Sources */,
+				84AB53331C8541C700029B12 /* ShareToView.m in Sources */,
 				849667601C7EDD1E00D8E7CB /* WFLoadingView.m in Sources */,
 				8496670E1C7D980600D8E7CB /* LaunchDataModel.m in Sources */,
 				8496672D1C7DA54400D8E7CB /* NewsItemCell.m in Sources */,
@@ -635,6 +646,7 @@
 				849666C31C7D916200D8E7CB /* MMExampleDrawerVisualStateManager.m in Sources */,
 				849667701C7EF97800D8E7CB /* WFThemeNavBar.m in Sources */,
 				849667201C7DA0E300D8E7CB /* StoryListDataModel.m in Sources */,
+				84AB53361C856E1300029B12 /* LoginViewController.m in Sources */,
 				84548AF11C841B5C000A6B58 /* CommentDataModel.m in Sources */,
 				849666E21C7D931200D8E7CB /* XMDeveloperHelper.m in Sources */,
 				849667881C7FFC4D00D8E7CB /* WFDetailHeaderView.m in Sources */,

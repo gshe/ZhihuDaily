@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface RecommendersView : UIView
-@property(nonatomic, strong)NSArray *recommenders;
+@property(nonatomic, strong) NSArray *recommenders;
 @end

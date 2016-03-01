@@ -15,6 +15,7 @@
 #import "RecommendersView.h"
 #import "WFToastView.h"
 #import "CommentsViewController.h"
+#import "ShareToView.h"
 
 @interface DetailViewController () <UIWebViewDelegate, UIScrollViewDelegate>
 @property(nonatomic, strong) UIWebView *webView;
@@ -266,7 +267,12 @@
 }
 
 - (void)sharePressed:(id)sender {
-  [[WFToastView class] showMsg:@"已分享！" inView:nil];
+  ShareToView *shartView = [[ShareToView alloc] initWithFrame:CGRectZero];
+  shartView.shareToClicked = ^(SharePlatform shareType, NSString *name) {
+    NSString *title = [NSString stringWithFormat:@"已分享！%@", name];
+    [[WFToastView class] showMsg:title inView:nil];
+  };
+  [shartView show];
 }
 
 - (void)votedPressed:(id)sender {

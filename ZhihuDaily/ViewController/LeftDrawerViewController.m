@@ -8,6 +8,7 @@
 
 #import "LeftDrawerViewController.h"
 #import "ChannelItemCell.h"
+#import "LoginViewController.h"
 
 @interface LeftDrawerViewController () <NIMutableTableViewModelDelegate,
                                         UITableViewDelegate>
@@ -73,6 +74,9 @@
   [_topView addSubview:avatarImg];
   UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
   [loginBtn setTitle:@"请登录" forState:UIControlStateNormal];
+  [loginBtn addTarget:self
+                action:@selector(loginButtonClicked:)
+      forControlEvents:UIControlEventTouchUpInside];
   [_topView addSubview:loginBtn];
 
   UIButton *favBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -148,6 +152,19 @@
 }
 
 #pragma mark - Private methods -
+
+- (void)loginButtonClicked:(id)sender {
+  LoginViewController *loginVC =
+      [[LoginViewController alloc] initWithNibName:nil bundle:nil];
+  UINavigationController *naviVC =
+      [[UINavigationController alloc] initWithRootViewController:loginVC];
+  [self presentViewController:naviVC
+                     animated:YES
+                   completion:^{
+
+                   }];
+}
+
 - (void)dealwith:(UIButton *)dealBtn {
   dealBtn.titleLabel.font = Font_12;
   [dealBtn setImageEdgeInsets:UIEdgeInsetsMake(-40, 0.f, 0.f, 0.f)];
