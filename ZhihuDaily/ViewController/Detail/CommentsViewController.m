@@ -34,6 +34,7 @@
   _isShortCommentExpanded = NO;
   _longComments = [NSMutableArray array];
   _shortComments = [NSMutableArray array];
+  self.title = @"评论";
   [self configUI];
   [self requestData];
 }
@@ -113,7 +114,7 @@
       before:beforeCommentId
       successBlock:^(CommentsListDataModel *json) {
         FDStrongSelf;
-        if (json && json.comments) {
+        if (json && json.comments.count > 0) {
           [_shortComments addObjectsFromArray:json.comments];
           [self.mainTableView.mj_footer endRefreshing];
         } else {
