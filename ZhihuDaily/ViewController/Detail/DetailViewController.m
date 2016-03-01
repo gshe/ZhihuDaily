@@ -13,6 +13,8 @@
 #import "WFDetailHeaderView.h"
 #import "WFLoadingView.h"
 #import "RecommendersView.h"
+#import "WFToastView.h"
+#import "CommentsViewController.h"
 
 @interface DetailViewController () <UIWebViewDelegate, UIScrollViewDelegate>
 @property(nonatomic, strong) UIWebView *webView;
@@ -46,7 +48,7 @@
 }
 
 - (void)configUI {
-  self.containerView = [[UIView alloc] initWithFrame:self.view.bounds];
+  self.containerView = [UIView new];
   [self.view addSubview:self.containerView];
 
   self.webView = [[UIWebView alloc] init];
@@ -57,6 +59,12 @@
   self.view.backgroundColor = [UIColor whiteColor];
 
   [self configDetailHeaderView];
+  [_containerView mas_makeConstraints:^(MASConstraintMaker *make) {
+    make.left.equalTo(self.view);
+    make.right.equalTo(self.view);
+    make.top.equalTo(self.view);
+    make.bottom.equalTo(self.view);
+  }];
   if (self.isShowHeaderView) {
     [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
       make.left.equalTo(self.containerView);
@@ -169,11 +177,11 @@
       [self.votedButton
           setTitle:[NSString stringWithFormat:@"%ld", self.extraInfo.popularity]
           forState:UIControlStateNormal];
-      [self.votedButton setTitleEdgeInsets:UIEdgeInsetsMake(0, -50, 18, 0)];
+      [self.votedButton setTitleEdgeInsets:UIEdgeInsetsMake(0, -40, 18, 0)];
       [self.commentButton
           setTitle:[NSString stringWithFormat:@"%ld", self.extraInfo.comments]
           forState:UIControlStateNormal];
-      [self.commentButton setTitleEdgeInsets:UIEdgeInsetsMake(0, -50, 18, 0)];
+      [self.commentButton setTitleEdgeInsets:UIEdgeInsetsMake(0, -48, 18, 0)];
     }
   }
 }
@@ -258,12 +266,24 @@
 }
 
 - (void)sharePressed:(id)sender {
+  [[WFToastView class] showMsg:@"已分享！" inView:nil];
 }
 
 - (void)votedPressed:(id)sender {
+  [[ZhihuDataManager shardInstance] voteNews:self.storyDataModel.storyId
+      successBlock:^(id json) {
+        [[WFToastView class] showMsg:@"已赞！" inView:nil];
+      }
+      failed:^(NSError *error) {
+        [[WFToastView class] showMsg:@"点赞失败！" inView:nil];
+      }];
 }
 
 - (void)commentPressed:(id)sender {
+  CommentsViewController *commentVC =
+      [[CommentsViewController alloc] initWithNibName:nil bundle:nil];
+  commentVC.storyItem = self.storyDataModel;
+  [self.navigationController pushViewController:commentVC animated:YES];
 }
 
 - (void)getNextNews {

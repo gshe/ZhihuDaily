@@ -35,4 +35,18 @@ typedef void (^HttpRequestFailureBlock)(NSError *error);
 - (void)requestChannelNewsWithChannelId:(NSInteger)channelId
                            successBlock:(HttpRequestSuccessBlock)successBlock
                                  failed:(HttpRequestFailureBlock)faildBlock;
+
+- (void)requestNewsLongComments:(long long)newsId
+                         before:(long long)commentId
+                   successBlock:(HttpRequestSuccessBlock)successBlock
+                         failed:(HttpRequestFailureBlock)faildBlock;
+
+- (void)requestNewsShortComments:(long long)newsId
+                          before:(long long)commentId
+                    successBlock:(HttpRequestSuccessBlock)successBlock
+                          failed:(HttpRequestFailureBlock)faildBlock;
+
+- (void)voteNews:(long long)newsId
+    successBlock:(HttpRequestSuccessBlock)successBlock
+          failed:(HttpRequestFailureBlock)faildBlock;
 @end

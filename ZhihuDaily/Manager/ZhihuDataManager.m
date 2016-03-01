@@ -13,6 +13,7 @@
 #import "StoryDetailExtraDataModel.h"
 #import "StoryDetailDataModel.h"
 #import "StoryDetailExtraDataModel.h"
+#import "CommentsListDataModel.h"
 
 #define kBaseUrl @"http://news-at.zhihu.com/api/4/"
 #define APIDateFormat @"yyyyMMdd"
@@ -103,7 +104,7 @@
           successBlock:(HttpRequestSuccessBlock)successBlock
                 failed:(HttpRequestFailureBlock)faildBlock {
   NSString *urlStr = [NSString
-      stringWithFormat:@"news/before/%@", [_formatter stringFromDate:date]];
+      stringWithFormat:@"story/before/%@", [_formatter stringFromDate:date]];
   [_sessionManager GET:urlStr
       parameters:nil
       success:^(NSURLSessionDataTask *_Nonnull task,
@@ -132,7 +133,7 @@
 - (void)requestNewsDetail:(long long)newsId
              successBlock:(HttpRequestSuccessBlock)successBlock
                    failed:(HttpRequestFailureBlock)faildBlock {
-  NSString *urlStr = [NSString stringWithFormat:@"news/%lld", newsId];
+  NSString *urlStr = [NSString stringWithFormat:@"story/%lld", newsId];
   [_sessionManager GET:urlStr
       parameters:nil
       success:^(NSURLSessionDataTask *_Nonnull task,
@@ -207,6 +208,99 @@
           if (faildBlock) {
             faildBlock(error);
           }
+        }
+      }
+      failure:^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error) {
+        if (faildBlock) {
+          faildBlock(error);
+        }
+      }];
+}
+
+- (void)requestNewsLongComments:(long long)newsId
+                         before:(long long)commentId
+                   successBlock:(HttpRequestSuccessBlock)successBlock
+                         failed:(HttpRequestFailureBlock)faildBlock {
+  NSString *urlStr = @"";
+  if (commentId > 0) {
+    urlStr = [NSString stringWithFormat:@"story/%lld/long-comments/before/%lld",
+                                        newsId, commentId];
+  } else {
+    urlStr = [NSString stringWithFormat:@"story/%lld/long-comments", newsId];
+  }
+  [_sessionManager GET:urlStr
+      parameters:nil
+      success:^(NSURLSessionDataTask *_Nonnull task,
+                id _Nonnull responseObject) {
+        NSError *error;
+        CommentsListDataModel *data =
+            [[CommentsListDataModel alloc] initWithDictionary:responseObject
+                                                        error:&error];
+        if (data) {
+          if (successBlock) {
+            successBlock(data);
+          }
+        } else {
+          if (faildBlock) {
+            faildBlock(error);
+          }
+        }
+      }
+      failure:^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error) {
+        if (faildBlock) {
+          faildBlock(error);
+        }
+      }];
+}
+
+- (void)requestNewsShortComments:(long long)newsId
+                          before:(long long)commentId
+                    successBlock:(HttpRequestSuccessBlock)successBlock
+                          failed:(HttpRequestFailureBlock)faildBlock {
+  NSString *urlStr = @"";
+  if (commentId > 0) {
+    urlStr =
+        [NSString stringWithFormat:@"story/%lld/short-comments/before/%lld",
+                                   newsId, commentId];
+  } else {
+    urlStr = [NSString stringWithFormat:@"story/%lld/short-comments", newsId];
+  }
+  [_sessionManager GET:urlStr
+      parameters:nil
+      success:^(NSURLSessionDataTask *_Nonnull task,
+                id _Nonnull responseObject) {
+        NSError *error;
+        CommentsListDataModel *data =
+            [[CommentsListDataModel alloc] initWithDictionary:responseObject
+                                                        error:&error];
+        if (data) {
+          if (successBlock) {
+            successBlock(data);
+          }
+        } else {
+          if (faildBlock) {
+            faildBlock(error);
+          }
+        }
+      }
+      failure:^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error) {
+        if (faildBlock) {
+          faildBlock(error);
+        }
+      }];
+}
+
+- (void)voteNews:(long long)newsId
+    successBlock:(HttpRequestSuccessBlock)successBlock
+          failed:(HttpRequestFailureBlock)faildBlock {
+  NSArray *params = [NSArray arrayWithObjects:@(newsId), @(1), nil];
+  [_sessionManager POST:@"vote/stories"
+      parameters:params
+      success:^(NSURLSessionDataTask *_Nonnull task,
+                id _Nonnull responseObject) {
+
+        if (successBlock) {
+          successBlock(responseObject);
         }
       }
       failure:^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error) {
