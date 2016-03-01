@@ -58,7 +58,6 @@
 		849667601C7EDD1E00D8E7CB /* WFLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8496675C1C7EDD1E00D8E7CB /* WFLoadingView.m */; };
 		849667611C7EDD1E00D8E7CB /* WFRefreshView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8496675E1C7EDD1E00D8E7CB /* WFRefreshView.m */; };
 		849667671C7EDFE500D8E7CB /* BannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 849667661C7EDFE500D8E7CB /* BannerView.m */; };
-		8496676A1C7EE92400D8E7CB /* BannerStoryDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 849667691C7EE92300D8E7CB /* BannerStoryDataModel.m */; };
 		8496676D1C7EF8A700D8E7CB /* EditorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8496676C1C7EF8A700D8E7CB /* EditorView.m */; };
 		849667701C7EF97800D8E7CB /* WFThemeNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 8496676F1C7EF97800D8E7CB /* WFThemeNavBar.m */; };
 		849667731C7EFB1700D8E7CB /* WFEditorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 849667721C7EFB1600D8E7CB /* WFEditorView.m */; };
@@ -173,8 +172,6 @@
 		8496675E1C7EDD1E00D8E7CB /* WFRefreshView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFRefreshView.m; sourceTree = "<group>"; };
 		849667651C7EDFE500D8E7CB /* BannerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerView.h; sourceTree = "<group>"; };
 		849667661C7EDFE500D8E7CB /* BannerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerView.m; sourceTree = "<group>"; };
-		849667681C7EE92300D8E7CB /* BannerStoryDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerStoryDataModel.h; sourceTree = "<group>"; };
-		849667691C7EE92300D8E7CB /* BannerStoryDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerStoryDataModel.m; sourceTree = "<group>"; };
 		8496676B1C7EF8A700D8E7CB /* EditorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditorView.h; sourceTree = "<group>"; };
 		8496676C1C7EF8A700D8E7CB /* EditorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditorView.m; sourceTree = "<group>"; };
 		8496676E1C7EF97800D8E7CB /* WFThemeNavBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFThemeNavBar.h; sourceTree = "<group>"; };
@@ -301,8 +298,6 @@
 		849666B41C7D909500D8E7CB /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				849667681C7EE92300D8E7CB /* BannerStoryDataModel.h */,
-				849667691C7EE92300D8E7CB /* BannerStoryDataModel.m */,
 				849667211C7DA22400D8E7CB /* JSONValueTransformer+CustomTransformer.h */,
 				849667221C7DA22400D8E7CB /* JSONValueTransformer+CustomTransformer.m */,
 				8496670C1C7D980600D8E7CB /* LaunchDataModel.h */,
@@ -673,7 +668,6 @@
 				8496669E1C7D8F9900D8E7CB /* main.m in Sources */,
 				849667551C7EA6EC00D8E7CB /* ChannelItemDataModel.m in Sources */,
 				8496671A1C7D9CFD00D8E7CB /* StoryDetailExtraDataModel.m in Sources */,
-				8496676A1C7EE92400D8E7CB /* BannerStoryDataModel.m in Sources */,
 				8496670B1C7D956100D8E7CB /* ZhihuDataManager.m in Sources */,
 				84548AF41C841C78000A6B58 /* CommentsListDataModel.m in Sources */,
 				849667851C7F08A500D8E7CB /* DetailViewController.m in Sources */,

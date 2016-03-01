@@ -7,17 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BannerStoryDataModel.h"
 
 /**
  *  banner视图
  */
 @interface BannerView : UIImageView
 
-@property(nonatomic, strong) BannerStoryDataModel *banner;
+@property(nonatomic, strong) StoryDataModel *banner;
 
 @property(nonatomic, copy) void (^clickBannerCallBackBlock)
-    (BannerStoryDataModel *banner);
+    (StoryDataModel *banner);
 
 @property(nonatomic, strong) UILabel *bannerTitleLbl;
 

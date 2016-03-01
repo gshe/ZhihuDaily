@@ -7,7 +7,7 @@
 //
 
 #import "WFAutoLoopView.h"
-#import "BannerStoryDataModel.h"
+#import "StoryDataModel.h"
 #import "BannerView.h"
 
 #define kDefaultHeaderFrame                                                    \
@@ -198,11 +198,11 @@
   _banners = banners;
   _currentIdx = (int)banners.count - 1;
   NSMutableArray *cells = [NSMutableArray array];
-  [banners enumerateObjectsUsingBlock:^(BannerStoryDataModel *banner, NSUInteger idx,
-                                        BOOL *stop) {
+  [banners enumerateObjectsUsingBlock:^(StoryDataModel *banner,
+                                        NSUInteger idx, BOOL *stop) {
     BannerView *cell = [[BannerView alloc] initWithFrame:self.frame];
     cell.banner = banner;
-    cell.clickBannerCallBackBlock = ^(BannerStoryDataModel *banner) {
+    cell.clickBannerCallBackBlock = ^(StoryDataModel *banner) {
       if (_clickAutoLoopCallBackBlock) {
         _clickAutoLoopCallBackBlock(banner);
       }

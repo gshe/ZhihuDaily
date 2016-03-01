@@ -54,7 +54,7 @@
 }
 
 #pragma mark - Setter
-- (void)setBanner:(BannerStoryDataModel *)banner {
+- (void)setBanner:(StoryDataModel *)banner {
 
   _banner = banner;
   [self sd_setImageWithURL:[NSURL URLWithString:banner.image]

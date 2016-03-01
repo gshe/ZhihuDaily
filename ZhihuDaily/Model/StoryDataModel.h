@@ -11,6 +11,7 @@
 @end
 
 @interface StoryDataModel : JSONModel
+@property(nonatomic, strong) NSString *image;
 @property(nonatomic, strong) NSArray *images;
 @property(nonatomic, assign) long storyType;
 @property(nonatomic, assign) long long storyId;

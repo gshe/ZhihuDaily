@@ -17,7 +17,7 @@
 @property(nonatomic, strong) WFAutoLoopView *autoLoopView;
 @property(nonatomic, strong) NSMutableDictionary *contentsDic;
 @property(nonatomic, strong) NSArray<StoryDataModel> *todayStories;
-@property(nonatomic, strong) NSArray<BannerStoryDataModel> *top_stories;
+@property(nonatomic, strong) NSArray<StoryDataModel> *top_stories;
 
 @property(nonatomic, strong) NSDate *fetchDate;
 @property(nonatomic, strong) NSDateFormatter *formatter;
@@ -141,21 +141,29 @@
     [self.mainTableView setTableHeaderView:nil];
   }
 
+  FDWeakSelf;
   _autoLoopView = [[WFAutoLoopView alloc]
       initWithFrame:CGRectMake(0, 0, kScreenWidth, 200.f)];
   _autoLoopView.stretchAnimation = YES;
   _autoLoopView.banners = _top_stories;
-
+  _autoLoopView.clickAutoLoopCallBackBlock = ^(StoryDataModel *banner) {
+    FDStrongSelf;
+    [self gotoDetailVC:banner isBanner:YES];
+  };
   [self.mainTableView setTableHeaderView:_autoLoopView];
 }
 
 - (void)itemClicked:(NICellObject *)sender {
   NewsItemCellUserData *userData = sender.userInfo;
   StoryDataModel *item = userData.storyItem;
+  [self gotoDetailVC:item isBanner:NO];
+}
+
+- (void)gotoDetailVC:(StoryDataModel *)story isBanner:(BOOL)isBanner {
   DetailViewController *detailVC =
       [[DetailViewController alloc] initWithNibName:nil bundle:nil];
-  detailVC.storyDataModel = item;
-  detailVC.storyDataList = [self getAllNews];
+  detailVC.storyDataModel = story;
+  detailVC.storyDataList = isBanner ? _todayStories : [self getAllNews];
   detailVC.isShowHeaderView = YES;
   [self.navigationController pushViewController:detailVC animated:YES];
 }

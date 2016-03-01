@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BannerStoryDataModel.h"
+#import "StoryDataModel.h"
 
 /**
  *  循环图
@@ -15,7 +15,7 @@
 @interface WFAutoLoopView : UIView
 
 @property(nonatomic, copy) void (^clickAutoLoopCallBackBlock)
-    (BannerStoryDataModel *banner); //点击图片事件回调
+    (StoryDataModel *banner); //点击图片事件回调
 
 /**
  *   是否自动滚动（默认为YES）

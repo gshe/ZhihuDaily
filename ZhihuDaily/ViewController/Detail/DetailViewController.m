@@ -335,7 +335,7 @@
                   CGRectMake(0, 0, kScreenWidth, kScreenHeight);
               NSUInteger index =
                   [self.storyDataList indexOfObject:self.storyDataModel];
-              if (index > 0) {
+              if (index > 0 && index < self.storyDataList.count) {
                 self.storyDataModel = self.storyDataList[index - 1];
                 self.detailInfo = nil;
                 self.extraInfo = nil;

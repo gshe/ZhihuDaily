@@ -9,11 +9,10 @@
 #import <JSONModel/JSONModel.h>
 #import "StoryDataModel.h"
 #import "EditorDataModel.h"
-#import "BannerStoryDataModel.h"
 
 @interface StoryListDataModel : JSONModel
 @property(nonatomic, strong) NSArray<StoryDataModel> *stories;
-@property(nonatomic, strong) NSArray<BannerStoryDataModel> *top_stories;
+@property(nonatomic, strong) NSArray<StoryDataModel> *top_stories;
 @property(nonatomic, strong) NSDate *date;
 @property(nonatomic, strong) NSArray<EditorDataModel> *editors;
 @property(nonatomic, strong) NSString *desc;
