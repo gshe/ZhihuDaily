@@ -44,6 +44,7 @@
               action:@selector(editViewTapped:)];
   [_editorView addGestureRecognizer:tapGesture];
   self.mainTableView.tableHeaderView = _editorView;
+  [self requestNewData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -52,7 +53,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
-  [self requestNewData];
 }
 
 - (void)requestNewData {
