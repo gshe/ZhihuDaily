@@ -104,7 +104,7 @@
           successBlock:(HttpRequestSuccessBlock)successBlock
                 failed:(HttpRequestFailureBlock)faildBlock {
   NSString *urlStr = [NSString
-      stringWithFormat:@"story/before/%@", [_formatter stringFromDate:date]];
+      stringWithFormat:@"news/before/%@", [_formatter stringFromDate:date]];
   [_sessionManager GET:urlStr
       parameters:nil
       success:^(NSURLSessionDataTask *_Nonnull task,
