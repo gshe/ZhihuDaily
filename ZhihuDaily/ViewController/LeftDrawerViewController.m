@@ -74,15 +74,19 @@
 }
 
 - (void)configTopView {
+  UIView *avatarview = [UIView new];
+
   UIImageView *avatarImg = [UIImageView new];
   avatarImg.image = Image(@"leftAvatar");
-  [_topView addSubview:avatarImg];
-  UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-  [loginBtn setTitle:@"请登录" forState:UIControlStateNormal];
-  [loginBtn addTarget:self
-                action:@selector(loginButtonClicked:)
-      forControlEvents:UIControlEventTouchUpInside];
-  [_topView addSubview:loginBtn];
+  UITapGestureRecognizer *tapGueture = [[UITapGestureRecognizer alloc]
+      initWithTarget:self
+              action:@selector(loginButtonClicked:)];
+  [avatarview addGestureRecognizer:tapGueture];
+  [avatarview addSubview:avatarImg];
+  UILabel *nameLabel = [UILabel new];
+  nameLabel.text = @"请登录";
+  [avatarview addSubview:nameLabel];
+  [_topView addSubview:avatarview];
 
   UIButton *favBtn = [UIButton buttonWithType:UIButtonTypeCustom];
   [favBtn setTitle:@"收藏" forState:UIControlStateNormal];
@@ -102,14 +106,22 @@
   [_topView addSubview:settingBtn];
   [self dealwith:settingBtn];
 
-  [avatarImg mas_makeConstraints:^(MASConstraintMaker *make) {
+  [avatarview mas_makeConstraints:^(MASConstraintMaker *make) {
     make.left.equalTo(_topView).offset(15);
+    make.right.equalTo(_topView).offset(-15);
     make.top.equalTo(_topView);
     make.width.mas_equalTo(44);
     make.height.mas_equalTo(44);
   }];
 
-  [loginBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+  [avatarImg mas_makeConstraints:^(MASConstraintMaker *make) {
+    make.left.equalTo(avatarview);
+    make.top.equalTo(avatarview);
+    make.width.mas_equalTo(44);
+    make.height.mas_equalTo(44);
+  }];
+
+  [nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
     make.left.equalTo(avatarImg.mas_right).offset(15);
     make.centerY.equalTo(avatarImg);
   }];
@@ -120,12 +132,12 @@
   }];
 
   [msgBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-    make.left.equalTo(favBtn.mas_right).offset(5);
+    make.centerX.equalTo(_topView);
     make.top.equalTo(favBtn);
   }];
 
   [settingBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-    make.left.equalTo(msgBtn.mas_right).offset(5);
+    make.right.equalTo(_topView).offset(-15);
     make.top.equalTo(favBtn);
   }];
 }
