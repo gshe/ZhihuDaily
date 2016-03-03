@@ -14,6 +14,7 @@
 #import "StoryDetailDataModel.h"
 #import "StoryDetailExtraDataModel.h"
 #import "CommentsListDataModel.h"
+#import "ThemeListDataModel.h"
 
 #define kBaseUrl @"http://news-at.zhihu.com/api/4/"
 #define APIDateFormat @"yyyyMMdd"
@@ -188,10 +189,42 @@
       }];
 }
 
+- (void)requestChannelsWithSuccessBlock:(HttpRequestSuccessBlock)successBlock
+                                 failed:(HttpRequestFailureBlock)faildBlock {
+  [_sessionManager GET:@"themes"
+      parameters:nil
+      success:^(NSURLSessionDataTask *_Nonnull task,
+                id _Nonnull responseObject) {
+        NSError *error;
+        ThemeListDataModel *data =
+            [[ThemeListDataModel alloc] initWithDictionary:responseObject
+                                                     error:&error];
+        if (data) {
+          if (successBlock) {
+            successBlock(data);
+          }
+        } else {
+          if (faildBlock) {
+            faildBlock(error);
+          }
+        }
+      }
+      failure:^(NSURLSessionDataTask *_Nullable task, NSError *_Nonnull error) {
+        if (faildBlock) {
+          faildBlock(error);
+        }
+      }];
+}
+
 - (void)requestChannelNewsWithChannelId:(NSInteger)channelId
+                           beforStoryId:(long long)storyId
                            successBlock:(HttpRequestSuccessBlock)successBlock
                                  failed:(HttpRequestFailureBlock)faildBlock {
   NSString *urlStr = [NSString stringWithFormat:@"theme/%ld", channelId];
+  if (storyId > 0) {
+    urlStr = [NSString stringWithFormat:@"%@/before/%lld", urlStr, storyId];
+  }
+
   [_sessionManager GET:urlStr
       parameters:nil
       success:^(NSURLSessionDataTask *_Nonnull task,

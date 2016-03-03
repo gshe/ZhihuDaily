@@ -31,7 +31,6 @@
     self.title.textAlignment = NSTextAlignmentLeft;
 
     self.thumbImg = [[UIImageView alloc] init];
-    self.thumbImg.image = Image(@"leftEnter");
     self.thumbImg.contentMode = UIViewContentModeScaleAspectFit;
     self.clipsToBounds = YES;
     [self.contentView addSubview:self.title];
@@ -51,8 +50,8 @@
   [self.thumbImg mas_makeConstraints:^(MASConstraintMaker *make) {
     make.right.equalTo(self.contentView).offset(-15);
     make.centerY.equalTo(self.contentView);
-    make.height.mas_equalTo(22);
-    make.width.mas_equalTo(22);
+    make.height.mas_equalTo(12);
+    make.width.mas_equalTo(12);
   }];
 }
 
@@ -75,11 +74,17 @@
 
 - (BOOL)shouldUpdateCellWithObject:(NICellObject *)object {
   self.userData = (ChannelItemCellUserData *)object.userInfo;
-  self.title.text = self.userData.channelItem.channelName;
+  self.title.text = self.userData.channelItem.themeInfo.name;
   if (self.userData.channelItem.isSelected) {
     self.title.font = Font_18_B;
   } else {
     self.title.font = Font_15;
+  }
+  if (self.userData.channelItem.isSubscribed ||
+      self.userData.channelItem.themeInfo.themeId == 0) {
+    self.thumbImg.image = Image(@"leftEnter");
+  } else {
+    self.thumbImg.image = [UIImage imageNamed:@"add"];
   }
   return YES;
 }

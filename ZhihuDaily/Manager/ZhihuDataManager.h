@@ -32,7 +32,11 @@ typedef void (^HttpRequestFailureBlock)(NSError *error);
                   successBlock:(HttpRequestSuccessBlock)successBlock
                         failed:(HttpRequestFailureBlock)faildBlock;
 
+-(void)requestChannelsWithSuccessBlock:(HttpRequestSuccessBlock)successBlock
+								failed:(HttpRequestFailureBlock)faildBlock;
+
 - (void)requestChannelNewsWithChannelId:(NSInteger)channelId
+                           beforStoryId:(long long)storyId
                            successBlock:(HttpRequestSuccessBlock)successBlock
                                  failed:(HttpRequestFailureBlock)faildBlock;
 

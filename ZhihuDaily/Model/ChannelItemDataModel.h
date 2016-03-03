@@ -7,15 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "ThemeDataModel.h"
 @interface ChannelItemDataModel : NSObject
-- (instancetype)initWithChannelId:(NSInteger)channleId
-                             name:(NSString *)channelName
-                               vc:(UIViewController *)channelVC
-                         selected:(BOOL)isSelected;
+- (instancetype)initWithInfo:(ThemeDataModel *)themeInfo
+                          vc:(UIViewController *)channelVC
+                    selected:(BOOL)isSelected;
 
 @property(nonatomic, assign) BOOL isSelected;
-@property(nonatomic, assign) NSInteger channleId;
-@property(nonatomic, strong) NSString *channelName;
+@property(nonatomic, assign) BOOL isSubscribed;
+@property(nonatomic, strong) ThemeDataModel *themeInfo;
 @property(nonatomic, weak) UIViewController *channelVC;
 @end

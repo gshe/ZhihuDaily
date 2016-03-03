@@ -16,6 +16,7 @@
 #import "WFThemeNavBar.h"
 @interface ChannelCommonViewController ()
 @property(nonatomic, strong) StoryListDataModel *storyList;
+@property(nonatomic, strong) NSMutableArray<StoryDataModel> *stories;
 @property(nonatomic, strong) WFEditorView *editorView;
 @property(nonatomic, strong) WFThemeNavBar *themeNavBar;
 @end
@@ -24,11 +25,11 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  self.title = self.channleModel.channelName;
-
+  self.title = self.channleModel.themeInfo.name;
+  _stories = [@[] mutableCopy];
   self.statusBar.hidden = YES;
   self.navigationBar.hidden = YES;
-  self.navigationTitle = self.channleModel.channelName;
+  self.navigationTitle = self.channleModel.themeInfo.name;
   [self.leftBarItemButton setImage:Image(@"detail_NavBack.png") forState:0];
   self.mainTableView.tableHeaderView = nil;
   self.mainTableView.frame =
@@ -51,39 +52,75 @@
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
-  [self requestData];
+  [self requestNewData];
 }
 
-- (void)requestData {
+- (void)requestNewData {
+  if (self.isLoading) {
+    return;
+  }
+  self.isLoading = YES;
   FDWeakSelf;
   [[ZhihuDataManager shardInstance]
-      requestChannelNewsWithChannelId:self.channleModel.channleId
+      requestChannelNewsWithChannelId:self.channleModel.themeInfo.themeId
+      beforStoryId:0
       successBlock:^(StoryListDataModel *json) {
         FDStrongSelf;
+        [_stories removeAllObjects];
+        if (json && json.stories) {
+          [_stories addObjectsFromArray:json.stories];
+        }
         self.storyList = json;
-        [self refreshUI];
+        [self refreshUI:YES];
+        self.isLoading = NO;
       }
-      failed:^(NSError *error){
-
+      failed:^(NSError *error) {
+        self.isLoading = NO;
       }];
 }
 
-- (void)refreshUI {
-  [self refreshNaviBar];
-  [self refreshEditorUI];
+- (void)requestOldData {
+  if (self.isLoading) {
+    return;
+  }
+  self.isLoading = YES;
+
+  StoryDataModel *lastItem = [_stories lastObject];
+  long long storyId = lastItem.storyId;
+  FDWeakSelf;
+  [[ZhihuDataManager shardInstance]
+      requestChannelNewsWithChannelId:self.channleModel.themeInfo.themeId
+      beforStoryId:storyId
+      successBlock:^(StoryListDataModel *json) {
+        FDStrongSelf;
+        self.storyList = json;
+        if (json && json.stories) {
+          [_stories addObjectsFromArray:json.stories];
+        }
+        [self refreshUI:NO];
+        self.isLoading = NO;
+      }
+      failed:^(NSError *error) {
+        self.isLoading = NO;
+      }];
+}
+
+- (void)refreshUI:(BOOL)isNew {
+  if (isNew) {
+    [self refreshNaviBar];
+    [self refreshEditorUI];
+  }
   NSMutableArray *contents = [@[] mutableCopy];
   self.action = [[NITableViewActions alloc] initWithTarget:self];
-  if (self.storyList.stories) {
-    for (StoryDataModel *item in self.storyList.stories) {
-      NewsItemCellUserData *userData = [[NewsItemCellUserData alloc] init];
-      userData.storyItem = item;
-      [contents
-          addObject:[self.action attachToObject:
-                                     [[NICellObject alloc]
+  for (StoryDataModel *item in _stories) {
+    NewsItemCellUserData *userData = [[NewsItemCellUserData alloc] init];
+    userData.storyItem = item;
+    [contents
+        addObject:[self.action
+                      attachToObject:[[NICellObject alloc]
                                          initWithCellClass:[NewsItemCell class]
                                                   userInfo:userData]
-                                    tapSelector:@selector(itemClicked:)]];
-    }
+                         tapSelector:@selector(itemClicked:)]];
   }
 
   self.mainTableView.delegate = [self.action forwardingTo:self];
@@ -123,8 +160,12 @@
     [_themeNavBar wf_parallaxHeaderViewWithOffset:scrollView.contentOffset.y];
   }
   if (-offSetY > 74) { //到－74 让scrollview不再能被拉动
-
     self.mainTableView.contentOffset = CGPointMake(0, -74);
+  }
+  if (offSetY + 80 > scrollView.contentSize.height - kScreenHeight) {
+    if (!self.isLoading) {
+      [self requestOldData];
+    }
   }
 }
 

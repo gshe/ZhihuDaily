@@ -9,33 +9,90 @@
 #import "MainViewController.h"
 #import "UIViewController+MMDrawerController.h"
 #import "HomePageViewController.h"
+#import "ChannelItemDataModel.h"
+#import "ThemeListDataModel.h"
+#import "ChannelCommonViewController.h"
 
 @interface MainViewController ()
 @property(nonatomic, strong) UIViewController *currentViewController;
 @property(nonatomic, strong) UIViewController *containerController;
+@property(nonatomic, strong) NSMutableArray *controllers;
 @property(nonatomic, strong) NSMutableArray *naviControllers;
+@property(nonatomic, strong) ThemeListDataModel *allThemes;
 @end
 
 @implementation MainViewController
 
 - (void)viewDidLoad {
   [super viewDidLoad];
+  _naviControllers = [NSMutableArray array];
+  _controllers = [NSMutableArray array];
 
-  [self createMapToNavi];
+  ThemeDataModel *homeTheme = [[ThemeDataModel alloc] init];
+  homeTheme.name = @"首页";
+  HomePageViewController *homeVC =
+      [[HomePageViewController alloc] initWithNibName:nil bundle:nil];
+  homeVC.channleModel = [[ChannelItemDataModel alloc] initWithInfo:homeTheme
+                                                                vc:homeVC
+                                                          selected:YES];
+  [_controllers addObject:homeVC];
+
+  UINavigationController *naviVC =
+      [[UINavigationController alloc] initWithRootViewController:homeVC];
+  [_naviControllers addObject:naviVC];
+
   _containerController = [UIViewController new];
   _containerController.view.backgroundColor = [UIColor whiteColor];
   [self.view addSubview:_containerController.view];
 
+  self.leftViewController.controllers = _controllers;
+
   [self showSelectedViewController];
+  [self requestChannels];
 }
 
-- (void)createMapToNavi {
-  _naviControllers = [NSMutableArray array];
-  for (BaseViewController *vc in _controllers) {
+- (void)requestChannels {
+  FDWeakSelf;
+  [[ZhihuDataManager shardInstance]
+      requestChannelsWithSuccessBlock:^(ThemeListDataModel *json) {
+        FDStrongSelf;
+        _allThemes = json;
+        [self refreshTheme];
+      }
+      failed:^(NSError *error){
+
+      }];
+}
+
+- (void)refreshTheme {
+  for (ThemeDataModel *theme in _allThemes.subscribed) {
+    ChannelCommonViewController *themeVC =
+        [[ChannelCommonViewController alloc] initWithNibName:nil bundle:nil];
+    themeVC.channleModel = [[ChannelItemDataModel alloc] initWithInfo:theme
+                                                                   vc:themeVC
+                                                             selected:NO];
+    themeVC.channleModel.isSubscribed = YES;
+    [_controllers addObject:themeVC];
+
     UINavigationController *naviVC =
-        [[UINavigationController alloc] initWithRootViewController:vc];
+        [[UINavigationController alloc] initWithRootViewController:themeVC];
     [_naviControllers addObject:naviVC];
   }
+
+  for (ThemeDataModel *theme in _allThemes.others) {
+    ChannelCommonViewController *themeVC =
+        [[ChannelCommonViewController alloc] initWithNibName:nil bundle:nil];
+    themeVC.channleModel = [[ChannelItemDataModel alloc] initWithInfo:theme
+                                                                   vc:themeVC
+                                                             selected:NO];
+    themeVC.channleModel.isSubscribed = NO;
+    [_controllers addObject:themeVC];
+
+    UINavigationController *naviVC =
+        [[UINavigationController alloc] initWithRootViewController:themeVC];
+    [_naviControllers addObject:naviVC];
+  }
+  self.leftViewController.controllers = _controllers;
 }
 
 - (void)didReceiveMemoryWarning {

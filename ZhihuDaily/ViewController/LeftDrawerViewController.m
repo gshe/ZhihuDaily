@@ -39,6 +39,11 @@
   [self refreshUI];
 }
 
+- (void)setControllers:(NSArray *)controllers {
+  _controllers = controllers;
+  [self refreshUI];
+}
+
 - (void)configUI {
   _topView = [UIView new];
   _bottomView = [UIView new];

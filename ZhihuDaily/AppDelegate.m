@@ -26,8 +26,7 @@
 
   LeftDrawerViewController *leftVC =
       [[LeftDrawerViewController alloc] initWithNibName:nil bundle:nil];
-  mainVC.controllers = [self allViewControllers];
-  leftVC.controllers = mainVC.controllers;
+  mainVC.leftViewController = leftVC;
   leftVC.delegate = mainVC;
   MMDrawerController *drawerController =
       [[MMDrawerController alloc] initWithCenterViewController:mainVC
@@ -115,58 +114,6 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
   // Called when the application is about to terminate. Save data if
   // appropriate. See also applicationDidEnterBackground:.
-}
-
-- (NSArray *)allViewControllers {
-  NSArray *channelList = @[
-    @"动漫日报",
-    @"日常心理学",
-    @"用户推荐日报",
-    @"电影日报",
-    @"不许无聊",
-    @"设计日报",
-    @"大公司日报",
-    @"财经日报",
-    @"互联网安全",
-    @"开始游戏",
-    @"音乐日报",
-    @"体育日报"
-  ];
-  NSArray *channelIdList = @[
-    @(9),
-    @(13),
-    @(12),
-    @(3),
-    @(11),
-    @(4),
-    @(5),
-    @(6),
-    @(10),
-    @(2),
-    @(7),
-    @(8)
-  ];
-  NSMutableArray *vcArr = [NSMutableArray array];
-  HomePageViewController *homeVC =
-      [[HomePageViewController alloc] initWithNibName:nil bundle:nil];
-  homeVC.channleModel =
-      [[ChannelItemDataModel alloc] initWithChannelId:0
-                                                 name:@"首页"
-                                                   vc:homeVC
-                                             selected:YES];
-  [vcArr addObject:homeVC];
-  for (NSInteger index = 0; index < channelList.count; index++) {
-    NSNumber *channleIDNumer = channelIdList[index];
-    ChannelCommonViewController *channelVC =
-        [[ChannelCommonViewController alloc] initWithNibName:nil bundle:nil];
-    channelVC.channleModel =
-        [[ChannelItemDataModel alloc] initWithChannelId:channleIDNumer.intValue
-                                                   name:channelList[index]
-                                                     vc:channelVC
-                                               selected:NO];
-    [vcArr addObject:channelVC];
-        }
-	return vcArr;
 }
 
 @end

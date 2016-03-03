@@ -9,14 +9,12 @@
 #import "ChannelItemDataModel.h"
 
 @implementation ChannelItemDataModel
-- (instancetype)initWithChannelId:(NSInteger)channleId
-                             name:(NSString *)channelName
-                               vc:(UIViewController *)channelVC
-                         selected:(BOOL)isSelected {
+- (instancetype)initWithInfo:(ThemeDataModel *)themeInfo
+                          vc:(UIViewController *)channelVC
+                    selected:(BOOL)isSelected {
   self = [super init];
   if (self) {
-    _channleId = channleId;
-    _channelName = channelName;
+    _themeInfo = themeInfo;
     _channelVC = channelVC;
     _isSelected = isSelected;
   }

@@ -72,6 +72,8 @@
 		84AB53301C85342200029B12 /* EmptySeatsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AB532F1C85342200029B12 /* EmptySeatsCell.m */; };
 		84AB53331C8541C700029B12 /* ShareToView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AB53321C8541C700029B12 /* ShareToView.m */; };
 		84AB53361C856E1300029B12 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AB53351C856E1300029B12 /* LoginViewController.m */; };
+		84FFAD911C88327F005FC1E0 /* ThemeDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FFAD901C88327F005FC1E0 /* ThemeDataModel.m */; };
+		84FFAD941C88328D005FC1E0 /* ThemeListDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FFAD931C88328D005FC1E0 /* ThemeListDataModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -202,6 +204,10 @@
 		84AB53321C8541C700029B12 /* ShareToView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareToView.m; sourceTree = "<group>"; };
 		84AB53341C856E1300029B12 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		84AB53351C856E1300029B12 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		84FFAD8F1C88327F005FC1E0 /* ThemeDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemeDataModel.h; sourceTree = "<group>"; };
+		84FFAD901C88327F005FC1E0 /* ThemeDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThemeDataModel.m; sourceTree = "<group>"; };
+		84FFAD921C88328D005FC1E0 /* ThemeListDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThemeListDataModel.h; sourceTree = "<group>"; };
+		84FFAD931C88328D005FC1E0 /* ThemeListDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThemeListDataModel.m; sourceTree = "<group>"; };
 		AECE401E484033FE6630FDA5 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		CE1015C37A81032C3132163B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -324,6 +330,10 @@
 				84548AF01C841B5C000A6B58 /* CommentDataModel.m */,
 				84548AF21C841C78000A6B58 /* CommentsListDataModel.h */,
 				84548AF31C841C78000A6B58 /* CommentsListDataModel.m */,
+				84FFAD8F1C88327F005FC1E0 /* ThemeDataModel.h */,
+				84FFAD901C88327F005FC1E0 /* ThemeDataModel.m */,
+				84FFAD921C88328D005FC1E0 /* ThemeListDataModel.h */,
+				84FFAD931C88328D005FC1E0 /* ThemeListDataModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -638,6 +648,8 @@
 				8496672D1C7DA54400D8E7CB /* NewsItemCell.m in Sources */,
 				84548AEE1C841B21000A6B58 /* CommentsViewController.m in Sources */,
 				8496677C1C7F01E100D8E7CB /* EditorListViewController.m in Sources */,
+				84FFAD941C88328D005FC1E0 /* ThemeListDataModel.m in Sources */,
+				84FFAD911C88327F005FC1E0 /* ThemeDataModel.m in Sources */,
 				84AB53301C85342200029B12 /* EmptySeatsCell.m in Sources */,
 				849666E01C7D931200D8E7CB /* CacheFileHelper.m in Sources */,
 				849666E41C7D931200D8E7CB /* PopupBaseView.m in Sources */,

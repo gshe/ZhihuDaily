@@ -11,6 +11,6 @@
 
 @interface MainViewController
     : UIViewController <LeftDrawerViewControllerDelegate>
-@property(nonatomic, strong) NSArray *controllers;
+@property(nonatomic, strong) LeftDrawerViewController *leftViewController;
 
 @end

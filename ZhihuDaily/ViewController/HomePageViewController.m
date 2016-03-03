@@ -28,7 +28,7 @@
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  self.title = self.channleModel.channelName;
+  self.title = self.channleModel.themeInfo.name;
   self.navigationBar.alpha = 0.f;
   self.statusBar.alpha = 0.f;
   _totalCount = 0;
@@ -46,9 +46,15 @@
 }
 
 - (void)requestNewData {
+  if (self.isLoading) {
+    return;
+  }
+  self.isLoading = YES;
+  FDWeakSelf;
   _fetchDate = [NSDate date];
   [[ZhihuDataManager shardInstance]
       requestLatestNews:^(StoryListDataModel *json) {
+        FDStrongSelf;
         [_contentsDic removeAllObjects];
         //[_contents addObject:_fetchDate];
         [_contentsDic setObject:json.stories forKey:@""];
@@ -60,14 +66,21 @@
         [self.refreshView stopAnimation];
         [self refreshUI];
       }
-      failed:^(NSError *error){
+      failed:^(NSError *error) {
+        self.isLoading = NO;
       }];
 }
 
 - (void)requestOldData {
+  if (self.isLoading) {
+    return;
+  }
+  self.isLoading = YES;
+  FDWeakSelf;
   _fetchDate = [NSDate dateWithTimeInterval:-24 * 60 * 60 sinceDate:_fetchDate];
   [[ZhihuDataManager shardInstance] requestOldNews:_fetchDate
       successBlock:^(StoryListDataModel *json) {
+        FDStrongSelf;
         [_contentsDic setObject:json.stories
                          forKey:[_formatter stringFromDate:json.date]];
         _totalCount += json.stories.count;
@@ -75,7 +88,8 @@
         [self.refreshView stopAnimation];
         [self refreshUI];
       }
-      failed:^(NSError *error){
+      failed:^(NSError *error) {
+        self.isLoading = NO;
       }];
 }
 
