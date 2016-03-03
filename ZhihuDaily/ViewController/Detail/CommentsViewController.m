@@ -43,20 +43,31 @@
   _writeNewComment = [UIView new];
   UILabel *addNewComment = [UILabel new];
   addNewComment.text = @"新评论";
+  UIImageView *addNewCommentImage = [UIImageView new];
+  addNewCommentImage.image = [UIImage imageNamed:@"newComment"];
   [_writeNewComment addSubview:addNewComment];
   [_writeNewComment
       addGestureRecognizer:[[UITapGestureRecognizer alloc]
                                initWithTarget:self
                                        action:@selector(addNewCommentTapped:)]];
   _writeNewComment.backgroundColor = [UIColor ex_orangeTextColor];
+  [_writeNewComment addSubview:addNewCommentImage];
+
   [self.view addSubview:_writeNewComment];
   self.mainTableView = [UITableView new];
   self.mainTableView.mj_footer = [MJRefreshAutoNormalFooter
       footerWithRefreshingTarget:self
                 refreshingAction:@selector(loadMoreData)];
   [self.view addSubview:self.mainTableView];
+  [addNewCommentImage mas_makeConstraints:^(MASConstraintMaker *make) {
+    make.centerY.equalTo(_writeNewComment);
+    make.centerX.equalTo(_writeNewComment).offset(-18);
+    make.width.mas_equalTo(24);
+    make.height.mas_equalTo(24);
+  }];
   [addNewComment mas_makeConstraints:^(MASConstraintMaker *make) {
-    make.center.equalTo(_writeNewComment);
+    make.centerY.equalTo(_writeNewComment);
+    make.left.equalTo(addNewCommentImage.mas_right).offset(5);
   }];
 
   [_writeNewComment mas_makeConstraints:^(MASConstraintMaker *make) {
