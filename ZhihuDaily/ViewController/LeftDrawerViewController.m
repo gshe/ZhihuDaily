@@ -110,7 +110,6 @@
     make.left.equalTo(_topView).offset(15);
     make.right.equalTo(_topView).offset(-15);
     make.top.equalTo(_topView);
-    make.width.mas_equalTo(44);
     make.height.mas_equalTo(44);
   }];
 
