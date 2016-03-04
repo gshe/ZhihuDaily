@@ -258,6 +258,7 @@
   }
 }
 
+#pragma DetailViewControllerDelegate
 - (void)itemReadNotify:(StoryDataModel *)item {
   NICellObject *cellObjSelected = nil;
   for (NICellObject *cellObj in _tableContents) {
@@ -272,9 +273,13 @@
     }
   }
 
-  NSIndexPath *indexPath = [self.model indexPathForObject:cellObjSelected];
-  [self.mainTableView reloadRowsAtIndexPaths:@[ indexPath ]
-                            withRowAnimation:UITableViewRowAnimationFade];
+  if (cellObjSelected) {
+    NSIndexPath *indexPath = [self.model indexPathForObject:cellObjSelected];
+    if (indexPath) {
+      [self.mainTableView reloadRowsAtIndexPaths:@[ indexPath ]
+                                withRowAnimation:UITableViewRowAnimationFade];
+        }
+  }
 }
 
 @end
