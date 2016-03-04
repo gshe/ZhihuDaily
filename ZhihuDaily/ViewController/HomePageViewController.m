@@ -13,7 +13,7 @@
 #import "MainViewController.h"
 #import "DetailViewController.h"
 
-@interface HomePageViewController ()
+@interface HomePageViewController () <DetailViewControllerDelegate>
 @property(nonatomic, strong) WFAutoLoopView *autoLoopView;
 @property(nonatomic, strong) NSMutableDictionary *contentsDic;
 @property(nonatomic, strong) NSArray<StoryDataModel> *todayStories;
@@ -22,6 +22,7 @@
 @property(nonatomic, strong) NSDate *fetchDate;
 @property(nonatomic, strong) NSDateFormatter *formatter;
 @property(nonatomic, assign) NSInteger totalCount;
+@property(nonatomic, strong) NSMutableArray *tableContents;
 @end
 
 @implementation HomePageViewController
@@ -36,6 +37,7 @@
   _formatter.dateFormat = @"yyyy年MM月dd";
   _fetchDate = [NSDate date];
   _contentsDic = [NSMutableDictionary dictionary];
+  _tableContents = [@[] mutableCopy];
   self.navigationTitle = @"今日要闻";
   [self requestNewData];
 }
@@ -95,7 +97,6 @@
 
 - (void)refreshUI {
   [self addTopView];
-  NSMutableArray *tableContents = [@[] mutableCopy];
   NSArray *keys = [_contentsDic allKeys];
   NSArray *sortedArray =
       [keys sortedArrayUsingComparator:^NSComparisonResult(NSString *obj1,
@@ -105,15 +106,15 @@
         }
         return [obj2 compare:obj1];
       }];
-
+  [_tableContents removeAllObjects];
   self.action = [[NITableViewActions alloc] initWithTarget:self];
   for (NSString *key in sortedArray) {
     NSArray *items = _contentsDic[key];
-    [tableContents addObject:key];
+    [_tableContents addObject:key];
     for (id subItem in items) {
       NewsItemCellUserData *userData = [[NewsItemCellUserData alloc] init];
       userData.storyItem = subItem;
-      [tableContents
+      [_tableContents
           addObject:[self.action attachToObject:
                                      [[NICellObject alloc]
                                          initWithCellClass:[NewsItemCell class]
@@ -123,7 +124,7 @@
   }
 
   self.mainTableView.delegate = [self.action forwardingTo:self];
-  [self setTableData:tableContents];
+  [self setTableData:_tableContents];
 }
 
 - (NSArray *)getAllNews {
@@ -179,11 +180,11 @@
   detailVC.storyDataModel = story;
   detailVC.storyDataList = isBanner ? _todayStories : [self getAllNews];
   detailVC.isShowHeaderView = YES;
+  detailVC.delegate = self;
   [self.navigationController pushViewController:detailVC animated:YES];
 }
 
 - (void)openLeftDrawer {
-
   AppDelegate *appDelegate =
       (AppDelegate *)[[UIApplication sharedApplication] delegate];
   if ([appDelegate.window.rootViewController
@@ -253,8 +254,27 @@
       self.navigationTitle = @"";
     } else { //透明度变化上面已经设置完成
       self.navigationTitle = @"今日要闻";
-                }
-	}
-	
+    }
+  }
 }
+
+- (void)itemReadNotify:(StoryDataModel *)item {
+  NICellObject *cellObjSelected = nil;
+  for (NICellObject *cellObj in _tableContents) {
+    if ([cellObj isKindOfClass:[NICellObject class]]) {
+      NewsItemCellUserData *userData = cellObj.userInfo;
+      if ([userData isKindOfClass:[NewsItemCellUserData class]]) {
+        if (userData.storyItem == item) {
+          cellObjSelected = cellObj;
+          break;
+        }
+      }
+    }
+  }
+
+  NSIndexPath *indexPath = [self.model indexPathForObject:cellObjSelected];
+  [self.mainTableView reloadRowsAtIndexPaths:@[ indexPath ]
+                            withRowAnimation:UITableViewRowAnimationFade];
+}
+
 @end

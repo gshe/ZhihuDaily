@@ -19,6 +19,7 @@
 @property(nonatomic, strong) NSMutableArray<StoryDataModel> *stories;
 @property(nonatomic, strong) WFEditorView *editorView;
 @property(nonatomic, strong) WFThemeNavBar *themeNavBar;
+@property(nonatomic, strong) NSMutableArray *tableContents;
 @end
 
 @implementation ChannelCommonViewController
@@ -36,7 +37,7 @@
       CGRectMake(0.f, 64.f, kScreenWidth, kScreenHeight - 64);
   [self.view insertSubview:self.themeNavBar
               belowSubview:self.leftBarItemButton];
-
+  _tableContents = [@[] mutableCopy];
   _editorView =
       [[WFEditorView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 40)];
   UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]
@@ -110,12 +111,13 @@
     [self refreshNaviBar];
     [self refreshEditorUI];
   }
-  NSMutableArray *contents = [@[] mutableCopy];
+  [_tableContents removeAllObjects];
+
   self.action = [[NITableViewActions alloc] initWithTarget:self];
   for (StoryDataModel *item in _stories) {
     NewsItemCellUserData *userData = [[NewsItemCellUserData alloc] init];
     userData.storyItem = item;
-    [contents
+    [_tableContents
         addObject:[self.action
                       attachToObject:[[NICellObject alloc]
                                          initWithCellClass:[NewsItemCell class]
@@ -124,7 +126,7 @@
   }
 
   self.mainTableView.delegate = [self.action forwardingTo:self];
-  [self setTableData:contents];
+  [self setTableData:_tableContents];
 }
 
 - (void)itemClicked:(NICellObject *)sender {
@@ -135,6 +137,7 @@
   detailVC.storyDataModel = item;
   detailVC.storyDataList = self.storyList.stories;
   detailVC.isShowHeaderView = NO;
+	detailVC.delegate = self;
   [self.navigationController pushViewController:detailVC animated:YES];
 }
 
@@ -198,6 +201,25 @@
       [[EditorListViewController alloc] initWithNibName:nil bundle:nil];
   editListVC.editors = self.storyList.editors;
   [self.navigationController pushViewController:editListVC animated:YES];
+}
+
+- (void)itemReadNotify:(StoryDataModel *)item {
+  NICellObject *cellObjSelected = nil;
+  for (NICellObject *cellObj in _tableContents) {
+    if ([cellObj isKindOfClass:[NICellObject class]]) {
+      NewsItemCellUserData *userData = cellObj.userInfo;
+      if ([userData isKindOfClass:[NewsItemCellUserData class]]) {
+        if (userData.storyItem == item) {
+          cellObjSelected = cellObj;
+          break;
+        }
+      }
+    }
+  }
+
+  NSIndexPath *indexPath = [self.model indexPathForObject:cellObjSelected];
+  [self.mainTableView reloadRowsAtIndexPaths:@[ indexPath ]
+                            withRowAnimation:UITableViewRowAnimationFade];
 }
 
 @end

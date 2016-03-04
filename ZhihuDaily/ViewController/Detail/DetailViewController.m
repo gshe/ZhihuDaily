@@ -171,6 +171,10 @@
 
 - (void)refreshUI {
   [[ItemDatabase sharedInstance] itemReadByUser:self.storyDataModel.storyId];
+  if ([self.delegate respondsToSelector:@selector(itemReadNotify:)]) {
+    [self.delegate itemReadNotify:self.storyDataModel];
+  }
+
   [self refreshToolbarStatus];
   if (self.detailInfo) {
     NSString *htmlStr = [self generateHtmlWithCss];

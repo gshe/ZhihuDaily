@@ -8,9 +8,13 @@
 
 #import "FDViewController.h"
 #import "StoryDataModel.h"
+@protocol DetailViewControllerDelegate <NSObject>
+- (void)itemReadNotify:(StoryDataModel *)item;
+@end
 
 @interface DetailViewController : FDViewController
 @property(nonatomic, strong) StoryDataModel *storyDataModel;
 @property(nonatomic, strong) NSArray *storyDataList;
 @property(nonatomic, assign) BOOL isShowHeaderView;
+@property(nonatomic, weak) id<DetailViewControllerDelegate> delegate;
 @end
