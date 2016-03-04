@@ -14,7 +14,7 @@
 #import "EditorListViewController.h"
 #import "DetailViewController.h"
 #import "WFThemeNavBar.h"
-@interface ChannelCommonViewController ()
+@interface ChannelCommonViewController () <DetailViewControllerDelegate>
 @property(nonatomic, strong) StoryListDataModel *storyList;
 @property(nonatomic, strong) NSMutableArray<StoryDataModel> *stories;
 @property(nonatomic, strong) WFEditorView *editorView;
@@ -137,7 +137,7 @@
   detailVC.storyDataModel = item;
   detailVC.storyDataList = self.storyList.stories;
   detailVC.isShowHeaderView = NO;
-	detailVC.delegate = self;
+  detailVC.delegate = self;
   [self.navigationController pushViewController:detailVC animated:YES];
 }
 
