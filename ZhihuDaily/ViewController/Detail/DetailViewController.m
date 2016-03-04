@@ -16,6 +16,7 @@
 #import "WFToastView.h"
 #import "CommentsViewController.h"
 #import "ShareToView.h"
+#import "ItemDatabase.h"
 
 @interface DetailViewController () <UIWebViewDelegate, UIScrollViewDelegate>
 @property(nonatomic, strong) UIWebView *webView;
@@ -169,6 +170,7 @@
 }
 
 - (void)refreshUI {
+  [[ItemDatabase sharedInstance] itemReadByUser:self.storyDataModel.storyId];
   [self refreshToolbarStatus];
   if (self.detailInfo) {
     NSString *htmlStr = [self generateHtmlWithCss];

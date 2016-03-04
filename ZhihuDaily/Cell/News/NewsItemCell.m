@@ -7,6 +7,8 @@
 //
 
 #import "NewsItemCell.h"
+#import "ItemDatabase.h"
+
 @implementation NewsItemCellUserData
 @end
 
@@ -31,7 +33,7 @@
 
     self.thumbImg = [[UIImageView alloc] init];
     self.thumbImg.contentMode = UIViewContentModeScaleAspectFill;
-	  self.thumbImg.clipsToBounds = YES;
+    self.thumbImg.clipsToBounds = YES;
     self.clipsToBounds = YES;
     [self.contentView addSubview:self.title];
     [self.contentView addSubview:self.thumbImg];
@@ -80,6 +82,12 @@
         sd_setImageWithURL:[NSURL
                                URLWithString:self.userData.storyItem.images[0]]
           placeholderImage:nil];
+  }
+  if ([[ItemDatabase sharedInstance]
+          isItemReadByUser:self.userData.storyItem.storyId]) {
+    self.title.textColor = [UIColor ex_subTextColor];
+  } else {
+    self.title.textColor = [UIColor ex_mainTextColor];
   }
   return YES;
 }
