@@ -17,6 +17,7 @@ pod 'XMLDictionary'
 pod 'FMDB'
 pod 'FLAnimatedImage', '~> 1.0.7'
 pod 'libextobjc'
+pod 'NJKWebViewProgress'
 
 target 'ZhihuDaily' do
 
