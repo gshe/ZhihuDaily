@@ -4,7 +4,7 @@ platform :ios, '7.0'
 # use_frameworks!
 
 pod 'AFNetworking','~> 2.6.3'
-pod 'MBProgressHUD','~> 0.9.2'
+pod 'MBProgressHUD','~> 1.0.0'
 pod 'Masonry','~> 0.6.3'
 pod 'SDWebImage','~> 3.7.3'
 pod 'MMDrawerController', '~> 0.5.7'
